@@ -1,0 +1,11 @@
+body {
+  background-color: #4d82bf;
+  background-image: url("../images/ce_home_a.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+  width: 100vw;
+}
