@@ -772,10 +772,6 @@ $(document).ready(function() {
 
 // element selection autocomplete
   $( function() {
-    function log( message ) {
-      $( "<div>" ).text( message ).prependTo( "#element-list" );
-      $( "#element-list" ).scrollTop( 0 );
-    }
     var availableTags = elementNames;
     $( "#elements" ).autocomplete({
       source: function(request, response) {
@@ -799,6 +795,8 @@ $(document).ready(function() {
         $(this).autocomplete("option","source",availableTags);
         var addElement = template(context);
         $('#element-list').append(addElement);
+
+        $( "#element-list" ).animate({ scrollLeft: '+=400'}, 1000);
 
 
         $(this).val('');

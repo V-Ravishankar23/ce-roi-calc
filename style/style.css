@@ -95,8 +95,8 @@ input.form-control {
 }
 
 .element-list {
-  margin: 30px;
-  flex-wrap: wrap;
+  margin: 30px -30px;
+  overflow-x: scroll;
 }
 
 .selected-element {
@@ -104,5 +104,5 @@ input.form-control {
 }
 
 .element-logo {
-  width: 5rem;
+  width: 10rem;
 }
