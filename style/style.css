@@ -69,5 +69,40 @@ input.form-control {
 }
 
 #data-selection {
+  width: 100%;
+}
 
+#elements {
+  width: 15rem;
+}
+
+.autocomplete-search {
+
+}
+
+
+.ui-autocomplete {
+  background: rgba(0,0,0,0.5);
+  outline: none;
+  border-radius: 0px 0px 5px 5px;
+  color:white;
+}
+
+.ui-menu .ui-menu-item a{
+  background:transparent;
+  height:10px;
+  font-size:8px;
+}
+
+.element-list {
+  margin: 30px;
+  flex-wrap: wrap;
+}
+
+.selected-element {
+  margin: 10px;
+}
+
+.element-logo {
+  width: 5rem;
 }

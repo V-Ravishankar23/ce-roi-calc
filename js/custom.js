@@ -772,9 +772,38 @@ $(document).ready(function() {
 
 // element selection autocomplete
   $( function() {
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#element-list" );
+      $( "#element-list" ).scrollTop( 0 );
+    }
     var availableTags = elementNames;
     $( "#elements" ).autocomplete({
-      source: availableTags
+      source: function(request, response) {
+        var results = $.ui.autocomplete.filter(availableTags, request.term);
+        response(results.slice(0, 8));
+      },
+      select: function (event,ui) {
+        var selected = ui.item.value;
+        var thisElementObject = $.grep(elementData, function(e){return e.name == selected});
+        var thisElementKey = thisElementObject[0].key;
+        var elementImg = thisElementKey + ".png";
+
+        var source = $("#element-entry-template").html();
+        var template = Handlebars.compile(source);
+        var context = {
+          "elementImg" : elementImg,
+          "selected" : selected
+        };
+
+        availableTags.splice(availableTags.indexOf(selected),1);
+        $(this).autocomplete("option","source",availableTags);
+        var addElement = template(context);
+        $('#element-list').append(addElement);
+
+
+        $(this).val('');
+        return false;
+      }
     });
   });
 
