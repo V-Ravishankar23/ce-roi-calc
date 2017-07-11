@@ -1,3 +1,11 @@
+/* Colors */
+/*
+  ce-light-blue: #44c8f5
+  ce-blue: #4d82bf
+  ce-gray: #666666
+*/
+
+
 body {
   background-color: #4d82bf;
   background-image: url("../images/ce_home_a.jpg");
@@ -8,4 +16,58 @@ body {
   background-position: center center;
   height: 100vh;
   width: 100vw;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.main-content {
+  height: 100%;
+  width: 100%;
+
+}
+
+footer {
+  background-color: transparent;
+  height: 100px;
+  margin-top: -100px;
+}
+
+.form-wrapper {
+  padding: 2rem;
+}
+
+.btn-default {
+  padding: 5px 10px;
+  margin: 10px;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+
+}
+.btn-default:hover {
+  background-color: white;
+  color: #4d82bf;
+  cursor: pointer;
+}
+
+input.form-control {
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.form-control:focus {
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  border-color: white;
+}
+
+#get-started {
+  display: none;
+}
+
+#data-selection {
+
 }
