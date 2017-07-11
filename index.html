@@ -12,6 +12,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="style/style.css">
+  <script src="https://use.fontawesome.com/356c852f39.js"></script>
 
 </head>
 
@@ -31,17 +32,20 @@
       </form>
     </div>
     <div class="form-wrapper container-fluid text-center" id="data-selection">
+      <h2>Which APIs are you integrating?</h2>
+      <br />
       <div class="search-box d-flex justify-content-center">
         <label class="sr-only">Select Elements</label>
-        <input class="autocomplete-search form-control mb-2 mr-sm-2 mb-sm-0" id="elements" size="40" placeholder="Search Elements"/>
+        <input class="autocomplete-search form-control mb-2 mr-sm-2 mb-sm-0" id="elements" size="40" placeholder="Search Elements (APIs)"/>
       </div>
       <div class="element-list d-flex" id="element-list">
         <script id="element-entry-template" type="text/x-handlebars-template">
-          <div class="selected-element">
+          <div class="selected-element" id="element-{{key}}">
             <img class="element-logo" src="images/circle-logos/{{elementImg}}" />
-            <p>
+            <p class="element-label">
               {{selected}}
             </p>
+            <button class="btn btn-default btn-remove" value="{{selected}}"><i class="fa fa-times-circle-o" aria-hidden="true"></i>  Remove</button>
           </div>
         </script>
       </div>

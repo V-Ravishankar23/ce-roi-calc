@@ -770,9 +770,14 @@ $(document).ready(function() {
     elementKeys.push(elementData[i]["key"]);
   }
 
+// Element selection arrays
+// add arrays to track which elements have been selected
+
+
 // element selection autocomplete
+
+var availableTags = elementNames;
   $( function() {
-    var availableTags = elementNames;
     $( "#elements" ).autocomplete({
       source: function(request, response) {
         var results = $.ui.autocomplete.filter(availableTags, request.term);
@@ -784,11 +789,14 @@ $(document).ready(function() {
         var thisElementKey = thisElementObject[0].key;
         var elementImg = thisElementKey + ".png";
 
+        // Add in code to add to selected elements array
+
         var source = $("#element-entry-template").html();
         var template = Handlebars.compile(source);
         var context = {
           "elementImg" : elementImg,
-          "selected" : selected
+          "selected" : selected,
+          "key" : thisElementKey
         };
 
         availableTags.splice(availableTags.indexOf(selected),1);
@@ -804,6 +812,18 @@ $(document).ready(function() {
       }
     });
   });
+
+  $(document).on('click','.btn-remove',function() {
+     $(this).closest("div").fadeOut(300);
+
+     // add this element back to selection options
+     var addBack = $(this).val();
+     availableTags.push(addBack);
+     $("#elements").autocomplete("option","source",availableTags);
+
+     // Add in code to remove this element from selected elements array
+
+});
 
 
 

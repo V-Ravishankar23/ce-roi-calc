@@ -70,16 +70,12 @@ input.form-control {
 
 #data-selection {
   width: 100%;
+  margin-top: 50px;
 }
 
 #elements {
   width: 15rem;
 }
-
-.autocomplete-search {
-
-}
-
 
 .ui-autocomplete {
   background: rgba(0,0,0,0.5);
@@ -105,4 +101,21 @@ input.form-control {
 
 .element-logo {
   width: 10rem;
+}
+
+.element-label {
+  width: 10rem;
+  background-color: #666666;
+  border-radius: 8px;
+  margin: 5px 0px;
+  padding: 5px 2px;
+}
+
+.btn-remove {
+  font-size: 0.7rem;
+  margin: 0px;
+}
+
+.btn-remove:hover {
+  color: #ff3838;
 }
