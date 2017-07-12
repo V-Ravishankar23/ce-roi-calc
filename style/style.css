@@ -128,7 +128,7 @@ input.form-control {
   padding: 5px 2px;
 }
 
-@@media and (max-width: 575px) {
+@media and (max-width: 575px) {
   .element-logo {
     width: 7rem;
   }
