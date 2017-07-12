@@ -78,7 +78,7 @@ input.form-control {
 
 @media screen and (max-width: 575px) {
   #data-selection {
-    margin-top: 20px;
+    margin-top: 5px;
   }
 }
 
@@ -107,7 +107,7 @@ input.form-control {
 }
 
 .element-list {
-  margin: 30px -30px;
+  margin: 1rem -30px;
   overflow-x: scroll;
 }
 
