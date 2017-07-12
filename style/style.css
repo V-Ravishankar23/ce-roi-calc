@@ -109,6 +109,8 @@ input.form-control {
 .element-list {
   margin: 1rem -30px;
   overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  white-space:nowrap;
 }
 
 .selected-element {

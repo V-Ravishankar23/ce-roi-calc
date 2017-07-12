@@ -864,7 +864,7 @@ var availableTags = elementNames;
         $(this).autocomplete("option","source",availableTags);
         var addElement = template(context);
         $('#element-list').prepend(addElement);
-        $("#" + thisElementKey).show(300);
+        $("#" + thisElementKey).show(300).css("display","inline");
         setTimeout(function() {
           $(".btn-advance").animate({"opacity":1});
         },500);
