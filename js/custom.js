@@ -2,8 +2,12 @@
 
 $(document).ready(function() {
 
-
   $('.loader').hide();
+
+  $(".loader").fadeIn(500).delay(1000).fadeOut(500, function() {
+    $("#get-started").fadeIn(500);
+  });
+
 
   $("#get-started-form").submit(function(){
 		var userFirst = $("input[name=user-name]").val();
@@ -21,7 +25,14 @@ $(document).ready(function() {
 			}
 		}); */
 
-    $(".main-content").removeClass("align-items-center");
+
+
+    $("#get-started").fadeOut(500, function() {
+      $(".main-content").removeClass("align-items-center");
+      $(".loader").fadeIn(500).delay(1000).fadeOut(500, function() {
+        $("#data-selection").fadeIn(500);
+      });
+    });
 
 		return false;
 	});
@@ -852,9 +863,8 @@ var availableTags = elementNames;
         availableTags.splice(availableTags.indexOf(selected),1);
         $(this).autocomplete("option","source",availableTags);
         var addElement = template(context);
-        $('#element-list').append(addElement);
-
-        $( "#element-list" ).animate({ scrollLeft: '+=400'}, 1000);
+        $('#element-list').prepend(addElement);
+        $("#" + thisElementKey).show(300);
         setTimeout(function() {
           $(".btn-advance").animate({"opacity":1});
         },500);
@@ -873,11 +883,11 @@ var availableTags = elementNames;
     selectedElementsKeys.splice(selectedElementsKeys.indexOf(removeThisKey),1);
     if (selectedElementsKeys.length < 1) {
       $(".btn-advance").animate({"opacity":0}, 300,function() {
-        $(removeDiv).closest("div").fadeOut(300);
+        $(removeDiv).closest("div").hide(300);
       });
     }
     else {
-      $(removeDiv).closest("div").fadeOut(300);
+      $(removeDiv).closest("div").hide(300);
     }
 
     // add this element back to selection options
@@ -891,17 +901,18 @@ var availableTags = elementNames;
 
   $(document).on('click','.btn-advance',function() {
 
+
     //for testing
     // selectedElementsKeys = ["slack","base","sqlserver","sharefile"];
     var keysForCalculation = selectedElementsKeys;
     var numOfElements = keysForCalculation.length;
-    var countREST;
-    var countSOAP;
-    var countOther;
+    var countREST = 0;
+    var countSOAP = 0;
+    var countOther = 0;
     for (var i = 0; i < numOfElements; i++) {
-      type = $.grep(elementData, function(e) {
-        return e.key == keysForCalculation[i];
-      })[0];
+      thisKey = keysForCalculation[i];
+      var typeArr = $.grep(elementData, function(e, u) {return e.key == thisKey});
+      var type = typeArr[0].apiType;
       if (type == "REST") {
         countREST++;
       }
@@ -912,16 +923,23 @@ var availableTags = elementNames;
         countOther++;
       }
     }
-    var diyBuildDays = (countREST * buildInfo["REST"].buildDays) + (countSOAP * buildInfo["SOAP"].buildDays) + (countOther * buildIinfo["Other"].buildDays);
-    var diyBuildCost = (countREST * buildInfo["REST"].buildCost) + (countSOAP * buildInfo["SOAP"].buildCost) + (countOther * buildIinfo["Other"].buildCost);
-    var diyAnnMaintCost = (countREST * buildInfo["REST"].annMaintCost) + (countSOAP * buildInfo["SOAP"].annMaintCost) + (countOther * buildIinfo["Other"].annMaintCost);
+    var diyBuildDays = (countREST * buildInfo["REST"].buildDays) + (countSOAP * buildInfo["SOAP"].buildDays) + (countOther * buildInfo["Other"].buildDays);
+    var diyBuildCost = (countREST * buildInfo["REST"].buildCost) + (countSOAP * buildInfo["SOAP"].buildCost) + (countOther * buildInfo["Other"].buildCost);
+    var diyAnnMaintCost = (countREST * buildInfo["REST"].annMaintCost) + (countSOAP * buildInfo["SOAP"].annMaintCost) + (countOther * buildInfo["Other"].annMaintCost);
     var diyBuildDaysString = diyBuildDays.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     var diyBuildCostString = "$" + diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     var diyAnnMaintCostString = "$" + diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
-    $("#diyBuildDays").html(diyBuildDaysString);
+    $("#diyBuildDays").html(diyBuildDays);
     $("#diyBuildCost").html(diyBuildCostString);
     $("#diyAnnMaintCost").html(diyAnnMaintCostString);
+
+    $("#data-selection").fadeOut(500, function() {
+      $(".main-content").addClass("align-items-center");
+      $(".loader").fadeIn(500).delay(1000).fadeOut(500, function() {
+        $("#calculated-roi").fadeIn(500);
+      });
+    });
 
   });
 

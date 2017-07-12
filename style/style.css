@@ -67,6 +67,7 @@ input.form-control {
 #get-started {
    /* use for transitioning */
    width: 100%;
+   display:none;
 }
 
 #data-selection {
@@ -112,6 +113,7 @@ input.form-control {
 
 .selected-element {
   margin: 10px;
+  display:none;
 }
 
 .element-logo {
