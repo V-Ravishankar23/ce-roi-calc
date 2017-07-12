@@ -926,7 +926,7 @@ var availableTags = elementNames;
     var diyBuildDays = (countREST * buildInfo["REST"].buildDays) + (countSOAP * buildInfo["SOAP"].buildDays) + (countOther * buildInfo["Other"].buildDays);
     var diyBuildCost = (countREST * buildInfo["REST"].buildCost) + (countSOAP * buildInfo["SOAP"].buildCost) + (countOther * buildInfo["Other"].buildCost);
     var diyAnnMaintCost = (countREST * buildInfo["REST"].annMaintCost) + (countSOAP * buildInfo["SOAP"].annMaintCost) + (countOther * buildInfo["Other"].annMaintCost);
-    var diyBuildDaysString = diyBuildDays.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var diyBuildDaysString = diyBuildDays.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + " Days";
     var diyBuildCostString = "$" + diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     var diyAnnMaintCostString = "$" + diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
