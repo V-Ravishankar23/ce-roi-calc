@@ -249,7 +249,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'Microsoft OneDrive for Business',
+      name: 'OneDrive for Business',
       key: 'onedrivebusiness',
       hub: 'documents',
       apiType: 'REST'
@@ -363,7 +363,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'Netsuite ERP 2016 Release 1',
+      name: 'Netsuite ERP',
       key: 'netsuiteerpv2',
       hub: 'erp',
       apiType: 'SOAP'
@@ -399,7 +399,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'Netsuite Finance 2016 R1',
+      name: 'Netsuite Finance',
       key: 'netsuitefinancev2',
       hub: 'finance',
       apiType: 'REST'
@@ -843,6 +843,9 @@ var availableTags = elementNames;
         var results = $.ui.autocomplete.filter(availableTags, request.term);
         response(results.slice(0, 8));
       },
+      open: function(event, ui) {
+        $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+      },
       select: function (event,ui) {
         var selected = ui.item.value;
         var thisElementObject = $.grep(elementData, function(e){return e.name == selected});
@@ -930,7 +933,7 @@ var availableTags = elementNames;
     var diyBuildCostString = "$" + diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     var diyAnnMaintCostString = "$" + diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
-    $("#diyBuildDays").html(diyBuildDays);
+    $("#diyBuildDays").html(diyBuildDaysString);
     $("#diyBuildCost").html(diyBuildCostString);
     $("#diyAnnMaintCost").html(diyAnnMaintCostString);
 
