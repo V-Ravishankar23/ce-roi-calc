@@ -114,7 +114,7 @@ input.form-control {
 }
 
 .selected-element {
-  margin: 10px;
+  margin: 0px 10px;
   display:none;
 }
 
@@ -128,15 +128,21 @@ input.form-control {
   border-radius: 8px;
   margin: 5px 0px;
   padding: 5px 2px;
+  overflow: hidden;
+  white-space: normal;
 }
 
 @media screen and (max-width: 575px) {
+  .element-list {
+    margin: 0.5rem -30px;
+  }
+
   .element-logo {
-    width: 7rem;
+    width: 9rem;
   }
 
   .element-label {
-    width: 7rem;
+    width: 9rem;
   }
 }
 

@@ -87,7 +87,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'SAP Hybris Cloud for Customer CRM',
+      name: 'SAP C4C CRM',
       key: 'sapc4ccrm',
       hub: 'crm',
       apiType: 'REST'
@@ -501,7 +501,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'SAP Hybris Cloud for Customer Helpdesk',
+      name: 'SAP C4C Helpdesk',
       key: 'sapc4chd',
       hub: 'helpdesk',
       apiType: 'REST'
@@ -585,7 +585,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'Netsuite HC 2016 Release 1',
+      name: 'Netsuite HC',
       key: 'netsuitehcv2',
       hub: 'humancapital',
       apiType: 'SOAP'
