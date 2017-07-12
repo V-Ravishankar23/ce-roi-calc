@@ -2,6 +2,31 @@
 
 $(document).ready(function() {
 
+
+  $('.loader').hide();
+
+  $("#get-started-form").submit(function(){
+		var userFirst = $("input[name=user-name]").val();
+		var userEmail = $("input[name=user-email]").val();
+    /* use this as a format for sending to hubspot form
+		$.ajax({
+			method: "POST",
+			contentType: "application/x-www-form-urlencoded; charset=UFT-8",
+			url: "https://forms.hubspot.com/uploads/form/v2/440197/e3ca91ee-b2e1-4dd2-899b-69855befe36d",
+			data: {
+				"firstname": userFirst,
+				"lastname": userLast,
+				"email": userEmail,
+				"pageName": "Codepen"
+			}
+		}); */
+
+    $(".main-content").removeClass("align-items-center");
+
+		return false;
+	});
+
+
   var elementData = [{
       name: 'Slack',
       key: 'slack',
@@ -105,7 +130,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'Infusionsoft',
+      name: 'Infusionsoft CRM',
       key: 'infusionsoftcrm',
       hub: 'crm',
       apiType: 'REST'
@@ -567,7 +592,7 @@ $(document).ready(function() {
       apiType: 'REST'
     },
     {
-      name: 'Infusionsoft',
+      name: 'Infusionsoft Marketing',
       key: 'infusionsoftmarketing',
       hub: 'marketing',
       apiType: 'REST'
@@ -760,6 +785,29 @@ $(document).ready(function() {
     }
   ];
 
+  var buildInfo = {
+    "REST" : {
+      "buildDays" : 90,
+      "buildCost" : 30000,
+      "annMaintCost" : 6000
+    },
+    "SOAP" : {
+      "buildDays" : 180,
+      "buildCost" : 60000,
+      "annMaintCost" : 12000
+    },
+    ".NET" : {
+      "buildDays" : 180,
+      "buildCost" : 60000,
+      "annMaintCost" : 12000
+    },
+    "Other" : {
+      "buildDays" : 180,
+      "buildCost" : 60000,
+      "annMaintCost" : 12000
+    },
+  }
+
   var elementNames = [];
   var elementKeys = [];
   var length = elementData.length;
@@ -771,7 +819,8 @@ $(document).ready(function() {
   }
 
 // Element selection arrays
-// add arrays to track which elements have been selected
+var selectedElementsKeys = [];
+
 
 
 // element selection autocomplete
@@ -789,7 +838,8 @@ var availableTags = elementNames;
         var thisElementKey = thisElementObject[0].key;
         var elementImg = thisElementKey + ".png";
 
-        // Add in code to add to selected elements array
+        selectedElementsKeys.push(thisElementKey);
+        $(".testdiv").html(selectedElementsKeys.join(",")); // remove
 
         var source = $("#element-entry-template").html();
         var template = Handlebars.compile(source);
@@ -805,6 +855,10 @@ var availableTags = elementNames;
         $('#element-list').append(addElement);
 
         $( "#element-list" ).animate({ scrollLeft: '+=400'}, 1000);
+        setTimeout(function() {
+          $(".btn-advance").animate({"opacity":1});
+        },500);
+
 
 
         $(this).val('');
@@ -814,16 +868,62 @@ var availableTags = elementNames;
   });
 
   $(document).on('click','.btn-remove',function() {
-     $(this).closest("div").fadeOut(300);
+    var removeThisKey = $(this).closest("div").attr('id');
+    var removeDiv = $(this).closest('div');
+    selectedElementsKeys.splice(selectedElementsKeys.indexOf(removeThisKey),1);
+    if (selectedElementsKeys.length < 1) {
+      $(".btn-advance").animate({"opacity":0}, 300,function() {
+        $(removeDiv).closest("div").fadeOut(300);
+      });
+    }
+    else {
+      $(removeDiv).closest("div").fadeOut(300);
+    }
 
-     // add this element back to selection options
-     var addBack = $(this).val();
-     availableTags.push(addBack);
-     $("#elements").autocomplete("option","source",availableTags);
+    // add this element back to selection options
+    var addBack = $(this).val();
+    availableTags.push(addBack);
+    $("#elements").autocomplete("option","source",availableTags);
+    $(".testdiv").html(selectedElementsKeys.join(",")); // remove
 
-     // Add in code to remove this element from selected elements array
 
-});
+  });
+
+  $(document).on('click','.btn-advance',function() {
+
+    //for testing
+    // selectedElementsKeys = ["slack","base","sqlserver","sharefile"];
+    var keysForCalculation = selectedElementsKeys;
+    var numOfElements = keysForCalculation.length;
+    var countREST;
+    var countSOAP;
+    var countOther;
+    for (var i = 0; i < numOfElements; i++) {
+      type = $.grep(elementData, function(e) {
+        return e.key == keysForCalculation[i];
+      })[0];
+      if (type == "REST") {
+        countREST++;
+      }
+      else if (type == "SOAP") {
+        countSOAP++;
+      }
+      else {
+        countOther++;
+      }
+    }
+    var diyBuildDays = (countREST * buildInfo["REST"].buildDays) + (countSOAP * buildInfo["SOAP"].buildDays) + (countOther * buildIinfo["Other"].buildDays);
+    var diyBuildCost = (countREST * buildInfo["REST"].buildCost) + (countSOAP * buildInfo["SOAP"].buildCost) + (countOther * buildIinfo["Other"].buildCost);
+    var diyAnnMaintCost = (countREST * buildInfo["REST"].annMaintCost) + (countSOAP * buildInfo["SOAP"].annMaintCost) + (countOther * buildIinfo["Other"].annMaintCost);
+    var diyBuildDaysString = diyBuildDays.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var diyBuildCostString = "$" + diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var diyAnnMaintCostString = "$" + diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
+    $("#diyBuildDays").html(diyBuildDaysString);
+    $("#diyBuildCost").html(diyBuildCostString);
+    $("#diyAnnMaintCost").html(diyAnnMaintCostString);
+
+  });
 
 
 

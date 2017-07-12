@@ -65,12 +65,27 @@ input.form-control {
 }
 
 #get-started {
-  display: none;
+   /* use for transitioning */
+   width: 100%;
 }
 
 #data-selection {
   width: 100%;
   margin-top: 50px;
+  display: none; /* use for transitioning */
+}
+
+@media screen and (max-width: 575px) {
+  #data-selection {
+    margin-top: 20px;
+  }
+}
+
+#calculated-roi {
+  display: none;
+}
+
+#loader {
 }
 
 #elements {
@@ -118,4 +133,18 @@ input.form-control {
 
 .btn-remove:hover {
   color: #ff3838;
+}
+
+.advance-btn-div {
+
+}
+
+.btn-advance {
+  font-size: 1.2rem;
+  opacity: 0;
+}
+
+.btn-advance:hover {
+  background-color: #4d82bf;
+  color: white;
 }
