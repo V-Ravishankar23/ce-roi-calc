@@ -866,8 +866,10 @@ var availableTags = elementNames;
         availableTags.splice(availableTags.indexOf(selected),1);
         $(this).autocomplete("option","source",availableTags);
         var addElement = template(context);
-        $('#element-list').prepend(addElement);
-        $("#" + thisElementKey).show(300).css("display","inline");
+        $('#element-list').append(addElement);
+        $("#" + thisElementKey).show(300,function(){
+          $('#element-list').animate({ scrollLeft: '+=400' }, 500);
+        });
         setTimeout(function() {
           $(".btn-advance").animate({"opacity":1});
         },500);
@@ -886,11 +888,15 @@ var availableTags = elementNames;
     selectedElementsKeys.splice(selectedElementsKeys.indexOf(removeThisKey),1);
     if (selectedElementsKeys.length < 1) {
       $(".btn-advance").animate({"opacity":0}, 300,function() {
-        $(removeDiv).closest("div").hide(300);
+        $(removeDiv).closest("div").animate({"opacity":0},300,function(){
+          $(this).hide();
+        });
       });
     }
     else {
-      $(removeDiv).closest("div").hide(300);
+      $(removeDiv).closest("div").animate({"opacity":0},300,function(){
+        $(this).hide();
+      });
     }
 
     // add this element back to selection options
