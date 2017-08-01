@@ -1022,7 +1022,7 @@ var availableTags = elementNames;
           },1500);
           setTimeout(function(){
             $("#diyBuildDays").countUpTo(diyBuildDays,3000);
-            $("#diyBuildDays").animate({"color":"red"},3000);
+            $(".diy-market").animate({"color":"red"},3000);
           },1600);
 
           setTimeout(function(){
