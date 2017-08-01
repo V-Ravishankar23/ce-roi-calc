@@ -7,6 +7,12 @@
 
 
 body {
+
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.main-content {
   background-color: #4d82bf;
   background-image: url("../images/ce_home_a.jpg");
   -webkit-background-size: cover;
@@ -16,13 +22,7 @@ body {
   background-position: center center;
   height: 100vh;
   width: 100vw;
-  color: white;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.main-content {
-  height: 100%;
-  width: 100%;
+  overflow: hidden;
 
 }
 
@@ -184,8 +184,28 @@ input.form-control {
 
 .diy-market {
   opacity: 0;
+  font-size: 1.5rem;
 }
 
 .ce-market {
   opacity: 0;
+  font-size: 1.5rem;
+}
+
+.build-summary-header {
+  font-size: 2rem;
+}
+
+@@media screen and (min-width: 575px) {
+  .build-summary-header {
+    font-size: 4rem;
+  }
+
+  .diy-market {
+    font-size: 2.8rem;
+  }
+
+  .ce-market {
+    font-size: 2.8rem;
+  }
 }
