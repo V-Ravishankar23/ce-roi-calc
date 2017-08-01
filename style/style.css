@@ -204,7 +204,7 @@ h1.ce-market {
   font-size: 2rem;
 }
 
-@@media screen and (min-width: 575px) {
+@media screen and (min-width: 575px) {
   .build-summary-header {
     font-size: 4rem;
   }
