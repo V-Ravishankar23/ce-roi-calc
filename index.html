@@ -19,7 +19,7 @@
 <body>
   <div class="main-content d-flex justify-content-center align-items-center"> <!-- add class align-items-center again -->
     <div class="form-wrapper text-center" id="get-started">
-      <h3>Calculate Your Cloud Elements ROI</h3>
+      <h1>Calculate Your Cloud Elements ROI</h1>
       <br />
       <form id="get-started-form">
         <div class="d-flex">
@@ -59,11 +59,30 @@
     </div>
 
     <div class="" id="calculated-roi">
-      <h3>DIY Build:</h3>
-      <h5>Time to Market: <span id="diyBuildDays"></span></h5>
-      <h5>Initial Build Cost: <span id="diyBuildCost"></span></h5>
-      <h5>Annual Maintenance Cost: <span id="diyAnnMaintCost"></span></h5>
+      <h1 class="text-center" style="font-size: 4rem;">BUILD SUMMARY</h1>
+      <div style="margin-top:50px;">
+        <div class="d-flex justify-content-around rest-apis">
+          <h3>REST APIs:</h3><h3><span class="counter" id="countREST">0</span></h3>
+        </div>
+        <div class="d-flex justify-content-around soap-apis">
+          <h3>SOAP APIs:</h3><h3><span class="counter" id="countSOAP">0</span></h3>
+        </div>
+        <hr class="total-apis" color="white" noshade/>
+        <div class="d-flex justify-content-around total-apis">
+          <h3>Total APIs:</h3><h3><span class="counter" id="countTotal">0</span></h3>
+        </div>
+      </div>
+      <br />
+      <h1 class="text-center diy-market" style="font-size: 3rem; margin-top:40px;">DIY TIME TO MARKET</h1>
+      <div class="d-flex justify-content-around diy-market">
+        <h3 style="font-size: 3rem;"><span class="counter" id="diyBuildDays"></span> Days</h3>
+      </div>
+      <h1 class="text-center ce-market" style="font-size: 3rem; margin-top:40px;">CLOUD ELEMENTS TIME TO MARKET</h1>
+      <div class="d-flex justify-content-around ce-market">
+        <h3 style="font-size: 3rem;"><span class="counter" id="cloudElementsBuildDays"></span> Days</h3>
+      </div>
     </div>
+
     <div class = "d-flex align-items-center justify-content-center">
       <i class="fa fa-circle-o-notch fa-spin fa-4x fa-fw loader"></i>
       <span class="sr-only loader">Loading...</span>

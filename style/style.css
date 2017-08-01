@@ -84,6 +84,7 @@ input.form-control {
 
 #calculated-roi {
   display: none;
+  margin-top: 50px;
 }
 
 #loader {
@@ -167,4 +168,24 @@ input.form-control {
 .btn-advance:hover {
   background-color: #4d82bf;
   color: white;
+}
+
+.rest-apis {
+  opacity: 0;
+}
+
+.soap-apis {
+  opacity: 0;
+}
+
+.total-apis {
+  opacity: 0;
+}
+
+.diy-market {
+  opacity: 0;
+}
+
+.ce-market {
+  opacity: 0;
 }

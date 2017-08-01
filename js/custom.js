@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   $('.loader').hide();
 
-  $(".loader").fadeIn(500).delay(1000).fadeOut(500, function() {
+  $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
     $("#get-started").fadeIn(500);
   });
 
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     $("#get-started").fadeOut(500, function() {
       $(".main-content").removeClass("align-items-center");
-      $(".loader").fadeIn(500).delay(1000).fadeOut(500, function() {
+      $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
         $("#data-selection").fadeIn(500);
       });
     });
@@ -836,12 +836,32 @@ var selectedElementsKeys = [];
 
 // element selection autocomplete
 
+function sortInputFirst(input, data) {
+  var first = [];
+  var others = [];
+  for (var i = 0; i < data.length; i++) {
+    var thisTag = (data[i]).toLowerCase();
+    if (thisTag.indexOf(input.toLowerCase()) === 0) {
+    first.push(data[i]);
+    } else {
+    others.push(data[i]);
+    }
+  }
+  first.sort();
+  others.sort();
+  return(first.concat(others));
+}
+
 var availableTags = elementNames;
   $( function() {
+
+
+
     $( "#elements" ).autocomplete({
       source: function(request, response) {
         var results = $.ui.autocomplete.filter(availableTags, request.term);
-        response(results.slice(0, 8));
+        var sortedResults = sortInputFirst(request.term,results);
+        response(sortedResults.slice(0, 8));
       },
       open: function(event, ui) {
         $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
@@ -864,10 +884,14 @@ var availableTags = elementNames;
         };
 
         availableTags.splice(availableTags.indexOf(selected),1);
-        $(this).autocomplete("option","source",availableTags);
+        $(this).autocomplete("option","source",function(request, response) {
+          var results = $.ui.autocomplete.filter(availableTags, request.term);
+          sortedResults = sortInputFirst(request.term,results);
+          response(sortedResults.slice(0, 8));
+        });
         var addElement = template(context);
         $('#element-list').append(addElement);
-        $("#" + thisElementKey).show(300,function(){
+        $("#" + thisElementKey).css("opacity",1).show(300,function(){
           $('#element-list').animate({ scrollLeft: '+=400' }, 500);
         });
         setTimeout(function() {
@@ -902,7 +926,11 @@ var availableTags = elementNames;
     // add this element back to selection options
     var addBack = $(this).val();
     availableTags.push(addBack);
-    $("#elements").autocomplete("option","source",availableTags);
+    $("#elements").autocomplete("option","source",function(request, response) {
+      var results = $.ui.autocomplete.filter(availableTags, request.term);
+      sortedResults = sortInputFirst(request.term,results);
+      response(sortedResults.slice(0, 8));
+    });
     $(".testdiv").html(selectedElementsKeys.join(",")); // remove
 
 
@@ -936,17 +964,75 @@ var availableTags = elementNames;
     var diyBuildCost = (countREST * buildInfo["REST"].buildCost) + (countSOAP * buildInfo["SOAP"].buildCost) + (countOther * buildInfo["Other"].buildCost);
     var diyAnnMaintCost = (countREST * buildInfo["REST"].annMaintCost) + (countSOAP * buildInfo["SOAP"].annMaintCost) + (countOther * buildInfo["Other"].annMaintCost);
     var diyBuildDaysString = diyBuildDays.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + " Days";
-    var diyBuildCostString = "$" + diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-    var diyAnnMaintCostString = "$" + diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var diyBuildCostString = diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var diyAnnMaintCostString = diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
-    $("#diyBuildDays").html(diyBuildDaysString);
-    $("#diyBuildCost").html(diyBuildCostString);
-    $("#diyAnnMaintCost").html(diyAnnMaintCostString);
+    var cloudElementsBuildDays = 30 + ((countREST + countSOAP + countOther - 1) * 7);
+
+    (function ( $ ) {
+      $.fn.countUpTo = function( num, dur ){
+
+        var $this = $(this);
+        var countTo = num;
+
+        $({ countNum: $this.text()}).animate({
+          countNum: countTo
+        },
+
+        {
+
+          duration: dur,
+          easing:'linear',
+          step: function() {
+            $this.text(Math.floor(this.countNum));
+          },
+          complete: function() {
+            $this.text(this.countNum);
+            //alert('finished');
+          }
+        });
+        return this;
+      };
+    }( jQuery ));
 
     $("#data-selection").fadeOut(500, function() {
-      $(".main-content").addClass("align-items-center");
-      $(".loader").fadeIn(500).delay(1000).fadeOut(500, function() {
-        $("#calculated-roi").fadeIn(500);
+      /* $(".main-content").addClass("align-items-center"); */
+      $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
+        $("#calculated-roi").fadeIn(500,function(){
+
+          $(".rest-apis").animate({"opacity":1},500);
+          setTimeout(function(){
+            $("#countREST").countUpTo(countREST,500);
+          },400);
+
+          $(".soap-apis").animate({"opacity":1},500);
+          setTimeout(function(){
+            $("#countSOAP").countUpTo((countSOAP+countOther),500);
+          },400);
+
+          setTimeout(function(){
+            $(".total-apis").animate({"opacity":1},500);
+          },900);
+          setTimeout(function(){
+            $("#countTotal").countUpTo((countREST+countSOAP+countOther),500);
+          },1000);
+
+          setTimeout(function(){
+            $(".diy-market").animate({"opacity":1},500);
+          },1500);
+          setTimeout(function(){
+            $("#diyBuildDays").countUpTo(diyBuildDays,3000);
+            $("#diyBuildDays").animate({"color":"red"},3000);
+          },1600);
+
+          setTimeout(function(){
+            $(".ce-market").animate({"opacity":1},500);
+          },4600);
+          setTimeout(function(){
+            $("#cloudElementsBuildDays").countUpTo(cloudElementsBuildDays,1000);
+          },4700);
+
+        });
       });
     });
 
