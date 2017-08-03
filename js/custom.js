@@ -886,7 +886,7 @@ var availableTags = elementNames;
         availableTags.splice(availableTags.indexOf(selected),1);
         $(this).autocomplete("option","source",function(request, response) {
           var results = $.ui.autocomplete.filter(availableTags, request.term);
-          sortedResults = sortInputFirst(request.term,results);
+          var sortedResults = sortInputFirst(request.term,results);
           response(sortedResults.slice(0, 8));
         });
         var addElement = template(context);
@@ -928,7 +928,7 @@ var availableTags = elementNames;
     availableTags.push(addBack);
     $("#elements").autocomplete("option","source",function(request, response) {
       var results = $.ui.autocomplete.filter(availableTags, request.term);
-      sortedResults = sortInputFirst(request.term,results);
+      var sortedResults = sortInputFirst(request.term,results);
       response(sortedResults.slice(0, 8));
     });
     $(".testdiv").html(selectedElementsKeys.join(",")); // remove
@@ -1036,6 +1036,32 @@ var availableTags = elementNames;
       });
     });
 
+    $(document).on('click','.btn-go-back',function(){
+      $("#calculated-roi").fadeOut(500, function() {
+        /* $(".main-content").addClass("align-items-center"); */
+        $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
+          $("#data-selection").fadeIn(500,function(){
+
+            $(".rest-apis").css("opacity",0);
+            $("#countREST").html("0");
+
+            $(".soap-apis").css("opacity",0);
+            $("#countSOAP").html("0");
+
+            $(".total-apis").css("opacity",0);
+            $("#countTotal").html("0");
+
+            $(".diy-market").css("opacity",0);
+            $(".diy-market").css("color","white");
+            $("#diyBuildDays").html("0");
+
+            $(".ce-market").css("opacity",0);
+            $("#cloudElementsBuildDays").html("0");
+
+          });
+        });
+      });
+    });
   });
 
 
