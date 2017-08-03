@@ -936,7 +936,7 @@ var availableTags = elementNames;
 
   });
 
-  $(document).on('click','.btn-advance',function() {
+  $(".btn-advance").click(function() {
 
 
     //for testing
@@ -996,7 +996,27 @@ var availableTags = elementNames;
     }( jQuery ));
 
     $("#data-selection").fadeOut(500, function() {
-      /* $(".main-content").addClass("align-items-center"); */
+
+      $(".rest-apis").css("opacity",0);
+      $("#countREST").html("0");
+
+      $(".soap-apis").css("opacity",0);
+      $("#countSOAP").html("0");
+
+      $(".total-apis").css("opacity",0);
+      $("#countTotal").html("0");
+
+      $(".time-to-market").css("opacity",0);
+
+      $(".diy-market").css("opacity",0);
+      $(".to-red").css("color","white");
+      $("#diyBuildDays").html("0");
+
+      $(".ce-market").css("opacity",0);
+      $("#cloudElementsBuildDays").html("0");
+
+      $(".breakdown").css("opacity",0);
+
       $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
         $("#calculated-roi").fadeIn(500,function(){
 
@@ -1044,34 +1064,31 @@ var availableTags = elementNames;
       });
     });
 
-    $(document).on('click','.btn-go-back',function(){
+    $(".btn-go-back").click(function(){
       $("#calculated-roi").fadeOut(500, function() {
-        /* $(".main-content").addClass("align-items-center"); */
-        $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
-          $("#data-selection").fadeIn(500,function(){
+        /*
+        $(".rest-apis").css("opacity",0);
+        $("#countREST").html("0");
 
-            $(".rest-apis").css("opacity",0);
-            $("#countREST").html("0");
+        $(".soap-apis").css("opacity",0);
+        $("#countSOAP").html("0");
 
-            $(".soap-apis").css("opacity",0);
-            $("#countSOAP").html("0");
+        $(".total-apis").css("opacity",0);
+        $("#countTotal").html("0");
 
-            $(".total-apis").css("opacity",0);
-            $("#countTotal").html("0");
+        $(".time-to-market").css("opacity",0);
 
-            $(".time-to-market").css("opacity",0);
+        $(".diy-market").css("opacity",0);
+        $(".to-red").css("color","white");
+        $("#diyBuildDays").html("0");
 
-            $(".diy-market").css("opacity",0);
-            $(".to-red").css("color","white");
-            $("#diyBuildDays").html("0");
+        $(".ce-market").css("opacity",0);
+        $("#cloudElementsBuildDays").html("0");
 
-            $(".ce-market").css("opacity",0);
-            $("#cloudElementsBuildDays").html("0");
+        $(".breakdown").css("opacity",0);
+        */
 
-            $(".breakdown").css("opacity",0);
-
-          });
-        });
+        $("#data-selection").fadeIn(500);
       });
     });
   });
