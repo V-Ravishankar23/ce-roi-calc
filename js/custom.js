@@ -1038,7 +1038,7 @@ var availableTags = elementNames;
 
           setTimeout(function(){
             $(".breakdown").animate({"opacity":1},500);
-          },4600);
+          },5000);
 
         });
       });

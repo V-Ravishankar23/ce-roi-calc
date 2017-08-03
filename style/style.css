@@ -170,6 +170,10 @@ input.form-control {
   color: white;
 }
 
+.api-count {
+  margin-top: 20px;
+}
+
 .rest-apis {
   opacity: 0;
 }
@@ -186,6 +190,11 @@ input.form-control {
   font-size: 1.3rem;
 }
 
+hr.total-apis {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .total-apis {
   opacity: 0;
 }
@@ -194,8 +203,14 @@ input.form-control {
   font-size: 1.3rem;
 }
 
+.btn-go-back {
+  margin-top: 15px;
+}
+
 .time-to-market {
   font-size: 1.8rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
   opacity: 0;
 }
 
@@ -221,6 +236,7 @@ h1.ce-market {
   font-size: 1rem;
   opacity: 0;
   cursor: pointer;
+  margin-top: 15px;
 }
 
 .breakdown i {
@@ -230,6 +246,10 @@ h1.ce-market {
 @media screen and (min-width: 575px) {
   #build-summary-header {
     font-size: 4rem;
+  }
+
+  .api-count {
+    margin-top: 40px;
   }
 
   .rest-apis h3 {
