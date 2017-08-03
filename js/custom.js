@@ -1018,11 +1018,15 @@ var availableTags = elementNames;
           },1000);
 
           setTimeout(function(){
+            $(".time-to-market").animate({"opacity":1},500);
+          },1500);
+
+          setTimeout(function(){
             $(".diy-market").animate({"opacity":1},500);
           },1500);
           setTimeout(function(){
             $("#diyBuildDays").countUpTo(diyBuildDays,3000);
-            $(".diy-market").animate({"color":"red"},3000);
+            $(".to-red").animate({"color":"red"},3000);
           },1600);
 
           setTimeout(function(){
@@ -1031,6 +1035,10 @@ var availableTags = elementNames;
           setTimeout(function(){
             $("#cloudElementsBuildDays").countUpTo(cloudElementsBuildDays,1000);
           },4700);
+
+          setTimeout(function(){
+            $(".breakdown").animate({"opacity":1},500);
+          },4600);
 
         });
       });
@@ -1051,12 +1059,16 @@ var availableTags = elementNames;
             $(".total-apis").css("opacity",0);
             $("#countTotal").html("0");
 
+            $(".time-to-market").css("opacity",0);
+
             $(".diy-market").css("opacity",0);
-            $(".diy-market").css("color","white");
+            $(".to-red").css("color","white");
             $("#diyBuildDays").html("0");
 
             $(".ce-market").css("opacity",0);
             $("#cloudElementsBuildDays").html("0");
+
+            $(".breakdown").css("opacity",0);
 
           });
         });

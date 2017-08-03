@@ -80,16 +80,25 @@
         <div class="total-apis d-flex justify-content-center">
           <button class="btn btn-default btn-go-back">Add / Remove APIs</button>
         </div>
-        <br />
-        <h1 class="text-center diy-market">DIY TIME TO MARKET</h1>
-        <div class="d-flex justify-content-center diy-market">
-          <h3 class="diy-market"><span class="diy-market" id="diyBuildDays">0</span> Days</h3>
-        </div>
-        <h1 class="text-center ce-market">CLOUD ELEMENTS TIME TO MARKET</h1>
-        <div class="d-flex justify-content-center ce-market">
-          <h3 class="ce-market"><span class="ce-market" id="cloudElementsBuildDays">0</span> Days</h3>
-        </div>
-        <br />
+        <h1 class="text-center time-to-market">Time to Market</h1>
+        <table>
+          <tr>
+            <td>
+              <h3 class="text-center diy-market">Build it Yourself:</h3>
+            </td>
+            <td class="text-right">
+              <h3 class="diy-market to-red">&nbsp;&nbsp;&nbsp;&nbsp;<span class="diy-market" id="diyBuildDays">0</span> Days</h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3 class="text-center ce-market">Cloud Elements:</h3>
+            </td>
+            <td class="text-right">
+              <h3 class="ce-market">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ce-market" id="cloudElementsBuildDays">0</span> Days</h3>
+            </td>
+          </tr>
+        </table>
         <div class="breakdown">
           <h5 class="text-center breakdown">See a detailed breakdown</h5>
           <div class="d-flex justify-content-center breakdown">
