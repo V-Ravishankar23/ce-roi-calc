@@ -174,12 +174,24 @@ input.form-control {
   opacity: 0;
 }
 
+.rest-apis h3 {
+  font-size: 1.3rem;
+}
+
 .soap-apis {
   opacity: 0;
 }
 
+.soap-apis h3 {
+  font-size: 1.3rem;
+}
+
 .total-apis {
   opacity: 0;
+}
+
+.total-apis h3 {
+  font-size: 1.3rem;
 }
 
 h1.diy-market {
@@ -197,16 +209,36 @@ h1.ce-market {
 
 .ce-market {
   opacity: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
-.build-summary-header {
+#build-summary-header {
   font-size: 2rem;
 }
 
+.breakdown {
+  font-size: 1rem;
+}
+
+.breakdown i {
+  font-size: 1.7rem;
+}
+
 @media screen and (min-width: 575px) {
-  .build-summary-header {
+  #build-summary-header {
     font-size: 4rem;
+  }
+
+  .rest-apis h3 {
+    font-size: 2rem;
+  }
+
+  .soap-apis h3 {
+    font-size: 2rem;
+  }
+
+  .total-apis h3 {
+    font-size: 2rem;
   }
 
   h1.diy-market {
@@ -222,6 +254,20 @@ h1.ce-market {
   }
 
   .ce-market {
-    font-size: 2.8rem;
+    font-size: 3rem;
   }
+
+  .breakdown {
+    font-size: 1.2rem;
+  }
+
+  .breakdown i {
+    font-size: 3rem;
+  }
+}
+
+.results {
+  height: 100vh;
+  width: 100vw;
+  display: none;
 }
