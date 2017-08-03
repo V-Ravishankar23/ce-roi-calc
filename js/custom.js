@@ -866,6 +866,7 @@ var availableTags = elementNames;
       open: function(event, ui) {
         $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
       },
+      autoFocus: true,
       select: function (event,ui) {
         var selected = ui.item.value;
         var thisElementObject = $.grep(elementData, function(e){return e.name == selected});
