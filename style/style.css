@@ -290,3 +290,8 @@ h1.ce-market {
   width: 100vw;
   display: none;
 }
+
+#test-circle {
+  height: 100px;
+  width: 100px;
+}

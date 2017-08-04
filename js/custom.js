@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
 
   $('.loader').hide();
@@ -9,9 +7,9 @@ $(document).ready(function() {
   });
 
 
-  $("#get-started-form").submit(function(){
-		var userFirst = $("input[name=user-name]").val();
-		var userEmail = $("input[name=user-email]").val();
+  $("#get-started-form").submit(function() {
+    var userFirst = $("input[name=user-name]").val();
+    var userEmail = $("input[name=user-email]").val();
     /* use this as a format for sending to hubspot form
 		$.ajax({
 			method: "POST",
@@ -34,8 +32,8 @@ $(document).ready(function() {
       });
     });
 
-		return false;
-	});
+    return false;
+  });
 
 
   var elementData = [{
@@ -797,79 +795,123 @@ $(document).ready(function() {
   ];
 
   var buildInfo = {
-    "REST" : {
-      "buildDays" : 90,
-      "buildCost" : 30000,
-      "annMaintCost" : 6000
+    "REST": {
+      "buildDays": 90,
+      "buildCost": 30000,
+      "annMaintCost": 6000
     },
-    "SOAP" : {
-      "buildDays" : 180,
-      "buildCost" : 60000,
-      "annMaintCost" : 12000
+    "SOAP": {
+      "buildDays": 180,
+      "buildCost": 60000,
+      "annMaintCost": 12000
     },
-    ".NET" : {
-      "buildDays" : 180,
-      "buildCost" : 60000,
-      "annMaintCost" : 12000
+    ".NET": {
+      "buildDays": 180,
+      "buildCost": 60000,
+      "annMaintCost": 12000
     },
-    "Other" : {
-      "buildDays" : 180,
-      "buildCost" : 60000,
-      "annMaintCost" : 12000
+    "Other": {
+      "buildDays": 180,
+      "buildCost": 60000,
+      "annMaintCost": 12000
     },
   }
+
+  var newBuildInfo = {
+    "REST": {
+      "research": 24,
+      "setup": 0,
+      "auth": 64,
+      "mvp": 80,
+      "models": 64,
+      "events": 104,
+      "bulkTransformation": 104,
+      "normalization": 80,
+      "testing": 40,
+      "totalDays": 70
+    },
+
+    "SOAP": {
+      "research": 40,
+      "setup": 64,
+      "auth": 64,
+      "mvp": 120,
+      "models": 80,
+      "events": 104,
+      "bulkTransformation": 104,
+      "normalization": 80,
+      "testing": 80,
+      "totalDays": 92
+    },
+
+    "Other": {
+      "research": 40,
+      "setup": 64,
+      "auth": 64,
+      "mvp": 120,
+      "models": 80,
+      "events": 104,
+      "bulkTransformation": 104,
+      "normalization": 80,
+      "testing": 80,
+      "totalDays": 92
+    }
+
+  };
 
   var elementNames = [];
   var elementKeys = [];
   var length = elementData.length;
-  for (var i = 0; i < length; i++){
+  for (var i = 0; i < length; i++) {
     elementNames.push(elementData[i]["name"]);
   }
-  for (var i = 0; i < length; i++){
+  for (var i = 0; i < length; i++) {
     elementKeys.push(elementData[i]["key"]);
   }
 
-// Element selection arrays
-var selectedElementsKeys = [];
+  // Element selection arrays
+  var selectedElementsKeys = [];
 
 
 
-// element selection autocomplete
+  // element selection autocomplete
 
-function sortInputFirst(input, data) {
-  var first = [];
-  var others = [];
-  for (var i = 0; i < data.length; i++) {
-    var thisTag = (data[i]).toLowerCase();
-    if (thisTag.indexOf(input.toLowerCase()) === 0) {
-    first.push(data[i]);
-    } else {
-    others.push(data[i]);
+  function sortInputFirst(input, data) {
+    var first = [];
+    var others = [];
+    for (var i = 0; i < data.length; i++) {
+      var thisTag = (data[i]).toLowerCase();
+      if (thisTag.indexOf(input.toLowerCase()) === 0) {
+        first.push(data[i]);
+      } else {
+        others.push(data[i]);
+      }
     }
+    first.sort();
+    others.sort();
+    return (first.concat(others));
   }
-  first.sort();
-  others.sort();
-  return(first.concat(others));
-}
 
-var availableTags = elementNames;
-  $( function() {
+  var availableTags = elementNames;
+  $(function() {
 
 
 
-    $( "#elements" ).autocomplete({
+    $("#elements").autocomplete({
       source: function(request, response) {
         var results = $.ui.autocomplete.filter(availableTags, request.term);
-        var sortedResults = sortInputFirst(request.term,results);
+        var sortedResults = sortInputFirst(request.term, results);
         response(sortedResults.slice(0, 8));
       },
       open: function(event, ui) {
         $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
       },
       autoFocus: true,
-      select: function (event,ui) {
+      select: function(event, ui) {
         var selected = ui.item.value;
-        var thisElementObject = $.grep(elementData, function(e){return e.name == selected});
+        var thisElementObject = $.grep(elementData, function(e) {
+          return e.name == selected
+        });
         var thisElementKey = thisElementObject[0].key;
         var elementImg = thisElementKey + ".png";
 
@@ -879,25 +921,29 @@ var availableTags = elementNames;
         var source = $("#element-entry-template").html();
         var template = Handlebars.compile(source);
         var context = {
-          "elementImg" : elementImg,
-          "selected" : selected,
-          "key" : thisElementKey
+          "elementImg": elementImg,
+          "selected": selected,
+          "key": thisElementKey
         };
 
-        availableTags.splice(availableTags.indexOf(selected),1);
-        $(this).autocomplete("option","source",function(request, response) {
+        availableTags.splice(availableTags.indexOf(selected), 1);
+        $(this).autocomplete("option", "source", function(request, response) {
           var results = $.ui.autocomplete.filter(availableTags, request.term);
-          var sortedResults = sortInputFirst(request.term,results);
+          var sortedResults = sortInputFirst(request.term, results);
           response(sortedResults.slice(0, 8));
         });
         var addElement = template(context);
         $('#element-list').append(addElement);
-        $("#" + thisElementKey).css("opacity",1).show(300,function(){
-          $('#element-list').animate({ scrollLeft: '+=400' }, 500);
+        $("#" + thisElementKey).css("opacity", 1).show(300, function() {
+          $('#element-list').animate({
+            scrollLeft: '+=400'
+          }, 500);
         });
         setTimeout(function() {
-          $(".btn-advance").animate({"opacity":1});
-        },500);
+          $(".btn-advance").animate({
+            "opacity": 1
+          });
+        }, 500);
 
 
 
@@ -907,19 +953,24 @@ var availableTags = elementNames;
     });
   });
 
-  $(document).on('click','.btn-remove',function() {
+  $(document).on('click', '.btn-remove', function() {
     var removeThisKey = $(this).closest("div").attr('id');
     var removeDiv = $(this).closest('div');
-    selectedElementsKeys.splice(selectedElementsKeys.indexOf(removeThisKey),1);
+    selectedElementsKeys.splice(selectedElementsKeys.indexOf(removeThisKey), 1);
     if (selectedElementsKeys.length < 1) {
-      $(".btn-advance").animate({"opacity":0}, 300,function() {
-        $(removeDiv).closest("div").animate({"opacity":0},300,function(){
+      $(".btn-advance").animate({
+        "opacity": 0
+      }, 300, function() {
+        $(removeDiv).closest("div").animate({
+          "opacity": 0
+        }, 300, function() {
           $(this).hide();
         });
       });
-    }
-    else {
-      $(removeDiv).closest("div").animate({"opacity":0},300,function(){
+    } else {
+      $(removeDiv).closest("div").animate({
+        "opacity": 0
+      }, 300, function() {
         $(this).hide();
       });
     }
@@ -927,9 +978,9 @@ var availableTags = elementNames;
     // add this element back to selection options
     var addBack = $(this).val();
     availableTags.push(addBack);
-    $("#elements").autocomplete("option","source",function(request, response) {
+    $("#elements").autocomplete("option", "source", function(request, response) {
       var results = $.ui.autocomplete.filter(availableTags, request.term);
-      var sortedResults = sortInputFirst(request.term,results);
+      var sortedResults = sortInputFirst(request.term, results);
       response(sortedResults.slice(0, 8));
     });
     $(".testdiv").html(selectedElementsKeys.join(",")); // remove
@@ -949,123 +1000,151 @@ var availableTags = elementNames;
     var countOther = 0;
     for (var i = 0; i < numOfElements; i++) {
       thisKey = keysForCalculation[i];
-      var typeArr = $.grep(elementData, function(e, u) {return e.key == thisKey});
+      var typeArr = $.grep(elementData, function(e, u) {
+        return e.key == thisKey
+      });
       var type = typeArr[0].apiType;
       if (type == "REST") {
         countREST++;
-      }
-      else if (type == "SOAP") {
+      } else if (type == "SOAP") {
         countSOAP++;
-      }
-      else {
+      } else {
         countOther++;
       }
     }
-    var diyBuildDays = (countREST * buildInfo["REST"].buildDays) + (countSOAP * buildInfo["SOAP"].buildDays) + (countOther * buildInfo["Other"].buildDays);
-    var diyBuildCost = (countREST * buildInfo["REST"].buildCost) + (countSOAP * buildInfo["SOAP"].buildCost) + (countOther * buildInfo["Other"].buildCost);
-    var diyAnnMaintCost = (countREST * buildInfo["REST"].annMaintCost) + (countSOAP * buildInfo["SOAP"].annMaintCost) + (countOther * buildInfo["Other"].annMaintCost);
-    var diyBuildDaysString = diyBuildDays.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + " Days";
-    var diyBuildCostString = diyBuildCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-    var diyAnnMaintCostString = diyAnnMaintCost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    var countSOAPAndOther = countSOAP + countOther;
+    var diyBuildDays = (countREST * newBuildInfo["REST"].totalDays) + (countSOAP * newBuildInfo["SOAP"].totalDays) + (countOther * newBuildInfo["Other"].totalDays);
+
+    var researchDays = (countREST * newBuildInfo["REST"].research) + (countSOAPAndOther * newBuildInfo["SOAP"].research);
+    var setupDays = (countREST * newBuildInfo["REST"].setup) + (countSOAPAndOther * newBuildInfo["SOAP"].setup);
+    var authDays = (countREST * newBuildInfo["REST"].auth) + (countSOAPAndOther * newBuildInfo["SOAP"].auth);
+    var mvpDays = (countREST * newBuildInfo["REST"].mvp) + (countSOAPAndOther * newBuildInfo["SOAP"].mvp);
+    var modelsDays = (countREST * newBuildInfo["REST"].models) + (countSOAPAndOther * newBuildInfo["SOAP"].models);
+    var eventsDays = (countREST * newBuildInfo["REST"].events) + (countSOAPAndOther * newBuildInfo["SOAP"].events);
+    var bulkTransformationDays = (countREST * newBuildInfo["REST"].bulkTransformation) + (countSOAPAndOther * newBuildInfo["SOAP"].bulkTransformation);
+    var normalizationDays = (countREST * newBuildInfo["REST"].normalization) + (countSOAPAndOther * newBuildInfo["SOAP"].normalization);
+    var testingDays = (countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing);
 
     var cloudElementsBuildDays = 30 + ((countREST + countSOAP + countOther - 1) * 7);
 
-    (function ( $ ) {
-      $.fn.countUpTo = function( num, dur ){
+    (function($) {
+      $.fn.countUpTo = function(num, dur) {
 
         var $this = $(this);
         var countTo = num;
 
-        $({ countNum: $this.text()}).animate({
-          countNum: countTo
-        },
-
-        {
-
-          duration: dur,
-          easing:'linear',
-          step: function() {
-            $this.text(Math.floor(this.countNum));
+        $({
+          countNum: $this.text()
+        }).animate({
+            countNum: countTo
           },
-          complete: function() {
-            $this.text(this.countNum);
-            //alert('finished');
-          }
-        });
+
+          {
+
+            duration: dur,
+            easing: 'easeOutQuint',
+            step: function() {
+              $this.text(Math.floor(this.countNum));
+            },
+            complete: function() {
+              $this.text(this.countNum);
+              //alert('finished');
+            }
+          });
         return this;
       };
-    }( jQuery ));
+    }(jQuery));
 
     $("#data-selection").fadeOut(500, function() {
 
-      $(".rest-apis").css("opacity",0);
+      $(".rest-apis").css("opacity", 0);
       $("#countREST").html("0");
 
-      $(".soap-apis").css("opacity",0);
+      $(".soap-apis").css("opacity", 0);
       $("#countSOAP").html("0");
 
-      $(".total-apis").css("opacity",0);
+      $(".total-apis").css("opacity", 0);
       $("#countTotal").html("0");
 
-      $(".time-to-market").css("opacity",0);
+      $(".time-to-market").css("opacity", 0);
 
-      $(".diy-market").css("opacity",0);
-      $(".to-red").css("color","white");
+      $(".diy-market").css("opacity", 0);
+      $(".to-red").css("color", "white");
       $("#diyBuildDays").html("0");
 
-      $(".ce-market").css("opacity",0);
+      $(".ce-market").css("opacity", 0);
       $("#cloudElementsBuildDays").html("0");
 
-      $(".breakdown").css("opacity",0);
+      $(".breakdown").css("opacity", 0);
 
       $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
-        $("#calculated-roi").fadeIn(500,function(){
+        $("#calculated-roi").fadeIn(500, function() {
 
-          $(".rest-apis").animate({"opacity":1},500);
-          setTimeout(function(){
-            $("#countREST").countUpTo(countREST,500);
-          },400);
+          $(".rest-apis").animate({
+            "opacity": 1
+          }, 500);
+          setTimeout(function() {
+            $("#countREST").countUpTo(countREST, 500);
+          }, 400);
 
-          $(".soap-apis").animate({"opacity":1},500);
-          setTimeout(function(){
-            $("#countSOAP").countUpTo((countSOAP+countOther),500);
-          },400);
+          $(".soap-apis").animate({
+            "opacity": 1
+          }, 500);
+          setTimeout(function() {
+            $("#countSOAP").countUpTo((countSOAP + countOther), 500);
+          }, 400);
 
-          setTimeout(function(){
-            $(".total-apis").animate({"opacity":1},500);
-          },900);
-          setTimeout(function(){
-            $("#countTotal").countUpTo((countREST+countSOAP+countOther),500);
-          },1000);
+          setTimeout(function() {
+            $(".total-apis").animate({
+              "opacity": 1
+            }, 500);
+          }, 900);
+          setTimeout(function() {
+            $("#countTotal").countUpTo((countREST + countSOAP + countOther), 500);
+          }, 1000);
 
-          setTimeout(function(){
-            $(".time-to-market").animate({"opacity":1},500);
-          },1500);
+          setTimeout(function() {
+            $(".time-to-market").animate({
+              "opacity": 1
+            }, 500);
+          }, 1500);
 
-          setTimeout(function(){
-            $(".diy-market").animate({"opacity":1},500);
-          },1500);
-          setTimeout(function(){
-            $("#diyBuildDays").countUpTo(diyBuildDays,3000);
-            $(".to-red").animate({"color":"red"},3000);
-          },1600);
+          setTimeout(function() {
+            $(".diy-market").animate({
+              "opacity": 1
+            }, 500);
+          }, 1500);
+          setTimeout(function() {
+            $("#diyBuildDays").countUpTo(diyBuildDays, 3000);
+            $(".to-red").animate({
+              "color": "red"
+            }, 3000);
+          }, 1600);
 
-          setTimeout(function(){
-            $(".ce-market").animate({"opacity":1},500);
-          },4600);
-          setTimeout(function(){
-            $("#cloudElementsBuildDays").countUpTo(cloudElementsBuildDays,1000);
-          },4700);
+          setTimeout(function() {
+            $(".ce-market").animate({
+              "opacity": 1
+            }, 500);
+          }, 4600);
+          setTimeout(function() {
+            $("#cloudElementsBuildDays").countUpTo(cloudElementsBuildDays, 1000);
+          }, 4700);
 
-          setTimeout(function(){
-            $(".breakdown").animate({"opacity":1},500);
-          },5000);
+          setTimeout(function() {
+            $(".breakdown").animate({
+              "opacity": 1
+            }, 500);
+          }, 5000);
+
+          // Fill in results section
+
+
 
         });
       });
     });
 
-    $(".btn-go-back").click(function(){
+    $(".btn-go-back").click(function() {
       $("#calculated-roi").fadeOut(500, function() {
         /*
         $(".rest-apis").css("opacity",0);
@@ -1094,6 +1173,43 @@ var availableTags = elementNames;
     });
   });
 
+  // Animated Circle
+  var bar = new ProgressBar.Circle("#test-circle", {
+  color: '#aaa',
+  // This has to be the same size as the maximum width to
+  // prevent clipping
+  strokeWidth: 4,
+  trailWidth: 1,
+  easing: 'easeInOut',
+  duration: 3000,
+  text: {
+    style: {
+      color: 'fff',
+      position: 'absolute',
+      padding: 0,
+      margin: 0,
+    },
+    autoStyleContainer: true
+  },
+  from: { color: '#aaa', width: 1 },
+  to: { color: '#333', width: 4 },
+  // Set default step function for all animate calls
+  step: function(state, circle) {
+    circle.path.setAttribute('stroke', state.color);
+    circle.path.setAttribute('stroke-width', state.width);
+
+    var value = Math.round(circle.value() * 100);
+    if (value === 0) {
+      circle.setText('');
+    } else {
+      circle.setText(value);
+    }
+
+  }
+});
+bar.text.style.fontSize = '2rem';
+
+bar.animate(.8);  // Number from 0.0 to 1.0
 
 
 });
