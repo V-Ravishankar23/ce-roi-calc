@@ -302,6 +302,7 @@ h1.ce-market {
   background-size: cover;
   background-position: center center;
   display: none;
+  padding-bottom: 20px;
 }
 
 .circle {
@@ -360,6 +361,12 @@ svg {
   font-size:1rem;
 }
 
+i.fa-info-circle {
+  font-size: 1.5rem;
+  color: #666666;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 575px) {
   .day-box {
     padding-left: 200px;
@@ -378,13 +385,17 @@ svg {
   }
 
   .circle-number {
-    font-size:1.2rem;
+    font-size:1.5rem;
     text-align: center;
 
   }
 
   .circle-days {
-    font-size:0.9rem;
+    font-size:1.1rem;
+  }
+
+  i.fa-info-circle {
+    font-size: 1.3rem;
   }
 
   svg {
@@ -393,11 +404,7 @@ svg {
   }
 }
 
-i.fa-info-circle {
-  font-size: 1.5rem;
-  color: #666666;
-  cursor: pointer;
-}
+
 
 .info-active {
   color: #44c8f5 !important;
