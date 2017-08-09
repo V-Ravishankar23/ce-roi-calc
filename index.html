@@ -23,9 +23,6 @@
     <div class="main-content d-flex justify-content-center align-items-center">
       <!-- add class align-items-center again -->
       <div class="form-wrapper text-center" id="get-started">
-        <div id="test-circle" class="d-flex align-items-center justify-content-center">
-
-        </div>
         <h1>Calculate Your Cloud Elements ROI</h1>
         <br />
         <form id="get-started-form">
@@ -120,11 +117,85 @@
     </footer>
   </div>
   <div class="results">
-    <div class="d-flex align-items-center research">
-      <div class="breakdown-days">
+    <div data-circle="researchCircle" class="research breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="research-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
+      <div class="circle-label">
+        Research
+      </div>
+    </div>
 
+    <div data-circle="setupCircle" class="setup breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="setup-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Setup
+      </div>
+    </div>
+
+    <div data-circle="authCircle" class="auth breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="auth-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Authorization
+      </div>
+    </div>
+
+    <div data-circle="mvpCircle" class="mvp breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="mvp-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        MVP Development (3 - 5 Resources)
+      </div>
+    </div>
+
+    <div data-circle="modelsCircle" class="models breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="models-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Develop Models
+      </div>
+    </div>
+
+    <div data-circle="eventsCircle" class="events breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="events-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Events
+      </div>
+    </div>
+
+    <div data-circle="bulkCircle" class="bulk breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="bulk-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Bulk &amp; Tranformations
+      </div>
+    </div>
+
+    <div data-circle="normalizationCircle" class="normalization breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="normalization-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Normalization
+      </div>
+    </div>
+
+    <div data-circle="testingCircle" class="testing breakdown-days day-box d-flex justify-content-start align-items-center">
+      <div id="testing-circle" class="circle d-flex align-items-center justify-content-center">
+
+      </div>
+      <div class="circle-label">
+        Testing
+      </div>
     </div>
   </div>
   <!-- JQuery, Tether, Bootstrap JS -->
@@ -134,7 +205,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js'></script>
-
+  <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
   <!-- Custom JS -->
   <script defer src="js/custom.js"></script>
 </body>
