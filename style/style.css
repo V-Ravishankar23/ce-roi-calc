@@ -328,18 +328,19 @@ svg {
 
 .day-box {
   width: 100vw;
-  padding: 50px;
+  padding: 50px 10px 0px 50px;
   opacity:0;
 }
 
 .more-info-box {
-  font-size: 1.2rem;
-  padding-left:50px;
+  font-size: 1.1rem;
+  padding-left: 50px;
+  padding-top: 15px;
   color: #444444;
 }
 
 .circle-label {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #333333;
   padding: 0px 30px 0px 30px;
   width: 500px;
@@ -396,4 +397,8 @@ i.fa-info-circle {
   font-size: 1.5rem;
   color: #666666;
   cursor: pointer;
+}
+
+.info-active {
+  color: #44c8f5 !important;
 }

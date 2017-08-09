@@ -1,7 +1,16 @@
 $(document).ready(function() {
 
-  window.sr = ScrollReveal();
-  sr.reveal('.day-box');
+
+  var researchCircle;
+  var setupCircle;
+  var authCircle;
+  var mvpCircle;
+  var modelsCircle;
+  var eventsCircle;
+  var bulkCircle;
+  var normalizationCircle;
+  var testingCircle;
+
 
 
   function Utils() {
@@ -1020,6 +1029,7 @@ $(document).ready(function() {
   $(".btn-advance").click(function() {
 
 
+
     //for testing
     // selectedElementsKeys = ["slack","base","sqlserver","sharefile"];
     var keysForCalculation = selectedElementsKeys;
@@ -1055,6 +1065,447 @@ $(document).ready(function() {
     var testingDays = ((countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing))/8;
 
     var cloudElementsBuildDays = 30 + ((countREST + countSOAP + countOther - 1) * 7);
+    /*
+    researchCircle = undefined;
+    setupCircle = undefined;
+    authCircle = undefined;
+    mvpCircle = undefined;
+    modelsCircle = undefined;
+    eventsCircle = undefined;
+    bulkCircle = undefined;
+    normalizationCircle = undefined;
+    testingCircle = undefined;
+    */
+
+    researchIsAnimated = false;
+    setupIsAnimated = false;
+    authIsAnimated = false;
+    mvpIsAnimated = false;
+    modelsIsAnimated = false;
+    eventsIsAnimated = false;
+    bulkIsAnimated = false;
+    normalizationIsAnimated = false;
+    testingIsAnimated = false;
+
+    $(".day-box").each(function(){
+      $(this).css("opacity",0);
+    });
+
+    $(".circle").each(function(){
+      $(this).empty();
+    });
+
+    $(".results").show(function(){
+
+    // Fill in results section
+    // Animated Circles
+      // researchCircle
+      researchCircle = new ProgressBar.Circle("#research-circle", {
+          color: '#aaa',
+          // This has to be the same size as the maximum width to
+          // prevent clipping
+          strokeWidth: 8,
+          trailWidth: 2,
+          easing: 'easeInOut',
+          duration: 3000,
+          text: {
+            style: {
+              color: "black",
+              position: 'absolute',
+              padding: 0,
+              margin: 0,
+            },
+            autoStyleContainer: true
+          },
+          from: { color: '#aaa', width: 2 },
+          to: { color: '#333', width: 8 },
+          // Set default step function for all animate calls
+          step: function(state, circle) {
+            circle.path.setAttribute('stroke', state.color);
+            circle.path.setAttribute('stroke-width', state.width);
+
+            var value = Math.round(circle.value()*researchDays);
+            if (value === 0) {
+              circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            } else {
+              circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            }
+
+          }
+        });
+      var researchIsAnimated = false;
+      $(window).scroll( function(){
+        if(researchIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.research'),true);
+          if(isElementInView){
+            $('.research').animate({"opacity":1});
+            researchCircle.animate(1);
+            researchIsAnimated = true;
+          }
+        }
+      });
+      // setupCircle
+      setupCircle = new ProgressBar.Circle("#setup-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*setupDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var setupIsAnimated = false;
+      $(window).scroll( function(){
+        if(setupIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.setup'),true);
+          if(isElementInView){
+            $('.setup').animate({"opacity":1});
+            setupCircle.animate(1);
+            setupIsAnimated = true;
+          }
+        }
+      });
+      // authCircle
+      authCircle = new ProgressBar.Circle("#auth-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*authDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var authIsAnimated = false;
+      $(window).scroll( function(){
+        if(authIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.auth'),true);
+          if(isElementInView){
+            $('.auth').animate({"opacity":1});
+            authCircle.animate(1);
+            authIsAnimated = true;
+          }
+        }
+      });
+      // mvpCircle
+      mvpCircle = new ProgressBar.Circle("#mvp-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*mvpDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var mvpIsAnimated = false;
+      $(window).scroll( function(){
+        if(mvpIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.mvp'),true);
+          if(isElementInView){
+            $('.mvp').animate({"opacity":1});
+            mvpCircle.animate(1);
+            mvpIsAnimated = true;
+          }
+        }
+      });
+      // modelsCircle
+      modelsCircle = new ProgressBar.Circle("#models-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*modelsDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var modelsIsAnimated = false;
+      $(window).scroll( function(){
+        if(modelsIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.models'),true);
+          if(isElementInView){
+            $('.models').animate({"opacity":1});
+            modelsCircle.animate(1);
+            modelsIsAnimated = true;
+          }
+        }
+      });
+      // eventsCircle
+      eventsCircle = new ProgressBar.Circle("#events-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*eventsDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var eventsIsAnimated = false;
+      $(window).scroll( function(){
+        if(eventsIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.events'),true);
+          if(isElementInView){
+            $('.events').animate({"opacity":1});
+            eventsCircle.animate(1);
+            eventsIsAnimated = true;
+          }
+        }
+      });
+      // bulkCircle
+      bulkCircle = new ProgressBar.Circle("#bulk-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*bulkTransformationDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var bulkIsAnimated = false;
+      $(window).scroll( function(){
+        if(bulkIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.bulk'),true);
+          if(isElementInView){
+            $('.bulk').animate({"opacity":1});
+            bulkCircle.animate(1);
+            bulkIsAnimated = true;
+          }
+        }
+      });
+      // normalizationCircle
+      normalizationCircle = new ProgressBar.Circle("#normalization-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*normalizationDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var normalizationIsAnimated = false;
+      $(window).scroll( function(){
+        if(normalizationIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.normalization'),true);
+          if(isElementInView){
+            $('.normalization').animate({"opacity":1});
+            normalizationCircle.animate(1);
+            normalizationIsAnimated = true;
+          }
+        }
+      });
+      // testingCircle
+      testingCircle = new ProgressBar.Circle("#testing-circle", {
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
+          },
+          autoStyleContainer: true
+        },
+        from: { color: '#aaa', width: 2 },
+        to: { color: '#333', width: 8 },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+
+          var value = Math.round(circle.value()*testingDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+          }
+
+        }
+      });
+      var testingIsAnimated = false;
+      $(window).scroll( function(){
+        if(testingIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.testing'),true);
+          if(isElementInView){
+            $('.testing').animate({"opacity":1});
+            testingCircle.animate(1);
+            testingIsAnimated = true;
+          }
+        }
+      });
+
+    });
 
     (function($) {
       $.fn.countUpTo = function(num, dur) {
@@ -1168,452 +1619,24 @@ $(document).ready(function() {
             }, 500);
           }, 5000);
 
-          $(".results").show(function(){
 
-          // Fill in results section
-          // Animated Circles
-            // researchCircle
-            var researchCircle = new ProgressBar.Circle("#research-circle", {
-                color: '#aaa',
-                // This has to be the same size as the maximum width to
-                // prevent clipping
-                strokeWidth: 8,
-                trailWidth: 2,
-                easing: 'easeInOut',
-                duration: 3000,
-                text: {
-                  style: {
-                    color: "black",
-                    position: 'absolute',
-                    padding: 0,
-                    margin: 0,
-                  },
-                  autoStyleContainer: true
-                },
-                from: { color: '#aaa', width: 2 },
-                to: { color: '#333', width: 8 },
-                // Set default step function for all animate calls
-                step: function(state, circle) {
-                  circle.path.setAttribute('stroke', state.color);
-                  circle.path.setAttribute('stroke-width', state.width);
-
-                  var value = Math.round(circle.value()*researchDays);
-                  if (value === 0) {
-                    circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                  } else {
-                    circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                  }
-
-                }
-              });
-            var researchIsAnimated = false;
-            $(window).scroll( function(){
-              if(researchIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.research'),true);
-                if(isElementInView){
-                  $('.research').animate({"opacity":1});
-                  researchCircle.animate(1);
-                  researchIsAnimated = true;
-                }
-              }
-            });
-            // setupCircle
-            var setupCircle = new ProgressBar.Circle("#setup-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*setupDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var setupIsAnimated = false;
-            $(window).scroll( function(){
-              if(setupIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.setup'),true);
-                if(isElementInView){
-                  $('.setup').animate({"opacity":1});
-                  setupCircle.animate(1);
-                  setupIsAnimated = true;
-                }
-              }
-            });
-            // authCircle
-            var authCircle = new ProgressBar.Circle("#auth-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*authDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var authIsAnimated = false;
-            $(window).scroll( function(){
-              if(authIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.auth'),true);
-                if(isElementInView){
-                  $('.auth').animate({"opacity":1});
-                  authCircle.animate(1);
-                  authIsAnimated = true;
-                }
-              }
-            });
-            // mvpCircle
-            var mvpCircle = new ProgressBar.Circle("#mvp-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*mvpDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var mvpIsAnimated = false;
-            $(window).scroll( function(){
-              if(mvpIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.mvp'),true);
-                if(isElementInView){
-                  $('.mvp').animate({"opacity":1});
-                  mvpCircle.animate(1);
-                  mvpIsAnimated = true;
-                }
-              }
-            });
-            // modelsCircle
-            var modelsCircle = new ProgressBar.Circle("#models-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*modelsDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var modelsIsAnimated = false;
-            $(window).scroll( function(){
-              if(modelsIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.models'),true);
-                if(isElementInView){
-                  $('.models').animate({"opacity":1});
-                  modelsCircle.animate(1);
-                  modelsIsAnimated = true;
-                }
-              }
-            });
-            // eventsCircle
-            var eventsCircle = new ProgressBar.Circle("#events-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*eventsDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var eventsIsAnimated = false;
-            $(window).scroll( function(){
-              if(eventsIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.events'),true);
-                if(isElementInView){
-                  $('.events').animate({"opacity":1});
-                  eventsCircle.animate(1);
-                  eventsIsAnimated = true;
-                }
-              }
-            });
-            // bulkCircle
-            var bulkCircle = new ProgressBar.Circle("#bulk-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*bulkTransformationDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var bulkIsAnimated = false;
-            $(window).scroll( function(){
-              if(bulkIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.bulk'),true);
-                if(isElementInView){
-                  $('.bulk').animate({"opacity":1});
-                  bulkCircle.animate(1);
-                  bulkIsAnimated = true;
-                }
-              }
-            });
-            // normalizationCircle
-            var normalizationCircle = new ProgressBar.Circle("#normalization-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*normalizationDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var normalizationIsAnimated = false;
-            $(window).scroll( function(){
-              if(normalizationIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.normalization'),true);
-                if(isElementInView){
-                  $('.normalization').animate({"opacity":1});
-                  normalizationCircle.animate(1);
-                  normalizationIsAnimated = true;
-                }
-              }
-            });
-            // testingCircle
-            var testingCircle = new ProgressBar.Circle("#testing-circle", {
-              color: '#aaa',
-              // This has to be the same size as the maximum width to
-              // prevent clipping
-              strokeWidth: 8,
-              trailWidth: 2,
-              easing: 'easeInOut',
-              duration: 3000,
-              text: {
-                style: {
-                  color: "black",
-                  position: 'absolute',
-                  padding: 0,
-                  margin: 0,
-                },
-                autoStyleContainer: true
-              },
-              from: { color: '#aaa', width: 2 },
-              to: { color: '#333', width: 8 },
-              // Set default step function for all animate calls
-              step: function(state, circle) {
-                circle.path.setAttribute('stroke', state.color);
-                circle.path.setAttribute('stroke-width', state.width);
-
-                var value = Math.round(circle.value()*testingDays);
-                if (value === 0) {
-                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-                } else {
-                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-                }
-
-              }
-            });
-            var testingIsAnimated = false;
-            $(window).scroll( function(){
-              if(testingIsAnimated === false) {
-                var isElementInView = Utils.isElementInView($('.testing'),true);
-                if(isElementInView){
-                  $('.testing').animate({"opacity":1});
-                  testingCircle.animate(1);
-                  testingIsAnimated = true;
-                }
-              }
-            });
-
-          });
         });
       },2000);
     });
 
     $(".btn-go-back").click(function() {
-      researchCircle = undefined;
-      setupCircle = undefined;
-      authCircle = undefined;
-      mvpCircle = undefined;
-      modelsCircle = undefined;
-      eventsCircle = undefined;
-      bulkCircle = undefined;
-      normalizationCircle = undefined;
-      testingCircle = undefined;
 
-      researchIsAnimated = false;
-      setupIsAnimated = false;
-      authIsAnimated = false;
-      mvpIsAnimated = false;
-      modelsIsAnimated = false;
-      eventsIsAnimated = false;
-      bulkIsAnimated = false;
-      normalizationIsAnimated = false;
-      testingIsAnimated = false;
-
-      $(".day-box").each(function(){
-        $(this).css("opacity",0);
+      $(".results").hide();
+      $(".more-info-box").each(function(){
+        $(this).hide();
+      });
+      $(".fa-info-circle").each(function(){
+        $(this).removeClass("info-active");
       });
 
 
-      $(".results").hide();
       $("#calculated-roi").fadeOut(500, function() {
-        $(".circle").each(function(){
-          $(this).empty();
-        });
+
 
         $("#data-selection").fadeIn(500);
       });
@@ -1624,6 +1647,7 @@ $(document).ready(function() {
     $(this).click(function(){
       var divID = $(this).attr("data-toggle");
       $(divID).slideToggle("slow");
+      $(this).toggleClass("info-active",500,"easeOutSine");
     });
   });
 
