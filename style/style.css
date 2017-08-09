@@ -239,8 +239,17 @@ h1.ce-market {
   margin-top: 15px;
 }
 
+@keyframes fadeinout {
+  0% {opacity: 0;}
+  50% {opacity:1;}
+  100% {opacity: 0;}
+}
+
 .breakdown i {
   font-size: 1.7rem;
+  animation-name: fadeinout;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }
 
 @media screen and (min-width: 575px) {
@@ -300,20 +309,70 @@ h1.ce-market {
   width: 120px;
 }
 
+svg {
+  min-width: 70px !important;
+  min-height: 70px !important;
+}
+
 .day-box {
   width: 100vw;
   padding: 50px;
   opacity:0;
-
-
 }
 
 .circle-label {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #333333;
   padding: 0px 30px 0px 30px;
+  margin-top: 35px;
+  width: 500px;
 }
 
 .progressbar-text * {
   margin:0px;
+}
+
+.circle-number {
+  font-size:1.2rem;
+  text-align: center;
+
+}
+
+.circle-days {
+  font-size:1rem;
+}
+
+@media screen and (min-width: 575px) {
+  .day-box {
+    padding-left: 200px;
+  }
+
+  .circle-label {
+    font-size: 2rem;
+  }
+
+  .circle-number {
+    font-size:1.2rem;
+    text-align: center;
+
+  }
+
+  .circle-days {
+    font-size:0.9rem;
+  }
+
+  svg {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+i.fa-info-circle {
+  font-size: 1.5rem;
+  color: #666666;
+  cursor: pointer;
+}
+
+.more-info-box {
+  font-size: 1.2rem;
 }

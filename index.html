@@ -88,7 +88,7 @@
               <h3 class="text-center diy-market">Build it Yourself:</h3>
             </td>
             <td class="text-right">
-              <h3 class="diy-market to-red">&nbsp;&nbsp;&nbsp;&nbsp;<span class="diy-market" id="diyBuildDays">0</span> Days</h3>
+              <strong><h3 class="diy-market to-red">&nbsp;&nbsp;&nbsp;&nbsp;<span class="diy-market" id="diyBuildDays">0</span> Days</h3></strong>
             </td>
           </tr>
           <tr>
@@ -96,12 +96,12 @@
               <h3 class="text-center ce-market">Cloud Elements:</h3>
             </td>
             <td class="text-right">
-              <h3 class="ce-market">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ce-market" id="cloudElementsBuildDays">0</span> Days</h3>
+              <strong><h3 class="ce-market">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ce-market" id="cloudElementsBuildDays">0</span> Days</h3></strong>
             </td>
           </tr>
         </table>
         <div class="breakdown">
-          <h5 class="text-center breakdown">See a detailed breakdown</h5>
+          <h5 class="text-center breakdown">Scroll for a detailed breakdown</h5>
           <div class="d-flex justify-content-center breakdown">
             <i class="fa fa-chevron-down fa-4x"></i>
           </div>
@@ -117,84 +117,111 @@
     </footer>
   </div>
   <div class="results">
-    <div data-circle="researchCircle" class="research breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="researchCircle" class="research breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="research-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Research
+        <span class="more-info">Research <i id="research-info-toggle" class="fa fa-info-circle" data-toggle="#research-info"></i></span>
+        <div class="more-info-box" id="research-info">
+          Research is the first step to building any API integration
+        </div>
       </div>
     </div>
 
-    <div data-circle="setupCircle" class="setup breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="setupCircle" class="setup breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="setup-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Setup
+        <span class="more-info">Setup <i id="setup-info-toggle" class="fa fa-info-circle" data-toggle="#setup-info"></i></span>
+        <div class="more-info-box" id="setup-info">
+          Setup description
+        </div>
       </div>
     </div>
 
-    <div data-circle="authCircle" class="auth breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="authCircle" class="auth breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="auth-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Authorization
+        <span class="more-info">Authorization <i id="auth-info-toggle" class="fa fa-info-circle" data-toggle="#auth-info"></i></span>
+        <div class="more-info-box" id="auth-info">
+          Auth description
+        </div>
       </div>
     </div>
 
-    <div data-circle="mvpCircle" class="mvp breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="mvpCircle" class="mvp breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="mvp-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        MVP Development (3 - 5 Resources)
+        <span class="more-info">MVP (3-5 Resources) <i id="mvp-info-toggle" class="fa fa-info-circle" data-toggle="#mvp-info"></i></span>
+        <div class="more-info-box" id="mvp-info">
+          MVP description
+        </div>
       </div>
     </div>
 
-    <div data-circle="modelsCircle" class="models breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="modelsCircle" class="models breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="models-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Develop Models
+        <span class="more-info">Models <i id="models-info-toggle" class="fa fa-info-circle" data-toggle="#models-info"></i></span>
+        <div class="more-info-box" id="models-info">
+          Models description
+        </div>
       </div>
     </div>
 
-    <div data-circle="eventsCircle" class="events breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="eventsCircle" class="events breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="events-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Events
+        <span class="more-info">Events <i id="events-info-toggle" class="fa fa-info-circle" data-toggle="#events-info"></i></span>
+        <div class="more-info-box" id="events-info">
+          Events description
+        </div>
       </div>
     </div>
 
-    <div data-circle="bulkCircle" class="bulk breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="bulkCircle" class="bulk breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="bulk-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Bulk &amp; Tranformations
+        <span class="more-info">Bulk &amp; Transformations <i id="bulk-info-toggle" class="fa fa-info-circle" data-toggle="#bulk-info"></i></span>
+        <div class="more-info-box" id="bulk-info">
+          Bulk and Transformations description
+        </div>
       </div>
     </div>
 
-    <div data-circle="normalizationCircle" class="normalization breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="normalizationCircle" class="normalization breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="normalization-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Normalization
+        <span class="more-info">Normalization <i id="normalization-info-toggle" class="fa fa-info-circle" data-toggle="#normalization-info"></i></span>
+        <div class="more-info-box" id="normalization-info">
+          Normalization description
+        </div>
       </div>
     </div>
 
-    <div data-circle="testingCircle" class="testing breakdown-days day-box d-flex justify-content-start align-items-center">
+    <div data-circle="testingCircle" class="testing breakdown-days day-box d-flex  justify-content-start align-items-start">
       <div id="testing-circle" class="circle d-flex align-items-center justify-content-center">
 
       </div>
       <div class="circle-label">
-        Testing
+        <span class="more-info">Testing <i id="testing-info-toggle" class="fa fa-info-circle" data-toggle="#testing-info"></i></span>
+        <div class="more-info-box" id="testing-info">
+          Testing description
+        </div>
       </div>
     </div>
   </div>

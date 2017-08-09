@@ -7,23 +7,27 @@ $(document).ready(function() {
   function Utils() {
   }
 
-Utils.prototype = {
-    constructor: Utils,
-    isElementInView: function (element, fullyInView) {
-        var pageTop = $(window).scrollTop();
-        var pageBottom = pageTop + $(window).height();
-        var elementTop = $(element).offset().top;
-        var elementBottom = elementTop + $(element).height();
+  Utils.prototype = {
+      constructor: Utils,
+      isElementInView: function (element, fullyInView) {
+          var pageTop = $(window).scrollTop();
+          var pageBottom = pageTop + $(window).height();
+          var elementTop = $(element).offset().top;
+          var elementBottom = elementTop + $(element).height();
 
-        if (fullyInView === true) {
-            return ((pageTop < elementTop) && (pageBottom > elementBottom));
-        } else {
-            return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
-        }
-    }
-};
+          if (fullyInView === true) {
+              return ((pageTop < elementTop) && (pageBottom > elementBottom));
+          } else {
+              return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+          }
+      }
+  };
 
-var Utils = new Utils();
+  var Utils = new Utils();
+
+  $(".more-info-box").each(function(){
+    $(this).hide();
+  });
 
   $('.loader').hide();
 
@@ -1040,15 +1044,15 @@ var Utils = new Utils();
     var countSOAPAndOther = countSOAP + countOther;
     var diyBuildDays = (countREST * newBuildInfo["REST"].totalDays) + (countSOAP * newBuildInfo["SOAP"].totalDays) + (countOther * newBuildInfo["Other"].totalDays);
 
-    var researchDays = ((countREST * newBuildInfo["REST"].research) + (countSOAPAndOther * newBuildInfo["SOAP"].research))/3;
-    var setupDays = ((countREST * newBuildInfo["REST"].setup) + (countSOAPAndOther * newBuildInfo["SOAP"].setup))/3;
-    var authDays = ((countREST * newBuildInfo["REST"].auth) + (countSOAPAndOther * newBuildInfo["SOAP"].auth))/3;
-    var mvpDays = ((countREST * newBuildInfo["REST"].mvp) + (countSOAPAndOther * newBuildInfo["SOAP"].mvp))/3;
-    var modelsDays = ((countREST * newBuildInfo["REST"].models) + (countSOAPAndOther * newBuildInfo["SOAP"].models))/3;
-    var eventsDays = ((countREST * newBuildInfo["REST"].events) + (countSOAPAndOther * newBuildInfo["SOAP"].events))/3;
-    var bulkTransformationDays = ((countREST * newBuildInfo["REST"].bulkTransformation) + (countSOAPAndOther * newBuildInfo["SOAP"].bulkTransformation))/3;
-    var normalizationDays = ((countREST * newBuildInfo["REST"].normalization) + (countSOAPAndOther * newBuildInfo["SOAP"].normalization))/3;
-    var testingDays = ((countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing))/3;
+    var researchDays = ((countREST * newBuildInfo["REST"].research) + (countSOAPAndOther * newBuildInfo["SOAP"].research))/8;
+    var setupDays = ((countREST * newBuildInfo["REST"].setup) + (countSOAPAndOther * newBuildInfo["SOAP"].setup))/8;
+    var authDays = ((countREST * newBuildInfo["REST"].auth) + (countSOAPAndOther * newBuildInfo["SOAP"].auth))/8;
+    var mvpDays = ((countREST * newBuildInfo["REST"].mvp) + (countSOAPAndOther * newBuildInfo["SOAP"].mvp))/8;
+    var modelsDays = ((countREST * newBuildInfo["REST"].models) + (countSOAPAndOther * newBuildInfo["SOAP"].models))/8;
+    var eventsDays = ((countREST * newBuildInfo["REST"].events) + (countSOAPAndOther * newBuildInfo["SOAP"].events))/8;
+    var bulkTransformationDays = ((countREST * newBuildInfo["REST"].bulkTransformation) + (countSOAPAndOther * newBuildInfo["SOAP"].bulkTransformation))/8;
+    var normalizationDays = ((countREST * newBuildInfo["REST"].normalization) + (countSOAPAndOther * newBuildInfo["SOAP"].normalization))/8;
+    var testingDays = ((countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing))/8;
 
     var cloudElementsBuildDays = 30 + ((countREST + countSOAP + countOther - 1) * 7);
 
@@ -1195,9 +1199,9 @@ var Utils = new Utils();
 
                   var value = Math.round(circle.value()*researchDays);
                   if (value === 0) {
-                    circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                    circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                   } else {
-                    circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                    circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                   }
 
                 }
@@ -1240,9 +1244,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*setupDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1285,9 +1289,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*authDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1330,9 +1334,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*mvpDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1375,9 +1379,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*modelsDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1420,9 +1424,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*eventsDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1465,9 +1469,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*bulkTransformationDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1510,9 +1514,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*normalizationDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1555,9 +1559,9 @@ var Utils = new Utils();
 
                 var value = Math.round(circle.value()*testingDays);
                 if (value === 0) {
-                  circle.setText("<h1>"+0+"</h1>"+"<p style='text-align:center;'>Days</p>");
+                  circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
                 } else {
-                  circle.setText("<h1>"+value+"</h1>"+"<p style='text-align:center;'>Days</p>");;
+                  circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
                 }
 
               }
@@ -1580,31 +1584,46 @@ var Utils = new Utils();
     });
 
     $(".btn-go-back").click(function() {
+      researchCircle = undefined;
+      setupCircle = undefined;
+      authCircle = undefined;
+      mvpCircle = undefined;
+      modelsCircle = undefined;
+      eventsCircle = undefined;
+      bulkCircle = undefined;
+      normalizationCircle = undefined;
+      testingCircle = undefined;
+
+      researchIsAnimated = false;
+      setupIsAnimated = false;
+      authIsAnimated = false;
+      mvpIsAnimated = false;
+      modelsIsAnimated = false;
+      eventsIsAnimated = false;
+      bulkIsAnimated = false;
+      normalizationIsAnimated = false;
+      testingIsAnimated = false;
+
+      $(".day-box").each(function(){
+        $(this).css("opacity",0);
+      });
+
+
+      $(".results").hide();
       $("#calculated-roi").fadeOut(500, function() {
-        /*
-        $(".rest-apis").css("opacity",0);
-        $("#countREST").html("0");
-
-        $(".soap-apis").css("opacity",0);
-        $("#countSOAP").html("0");
-
-        $(".total-apis").css("opacity",0);
-        $("#countTotal").html("0");
-
-        $(".time-to-market").css("opacity",0);
-
-        $(".diy-market").css("opacity",0);
-        $(".to-red").css("color","white");
-        $("#diyBuildDays").html("0");
-
-        $(".ce-market").css("opacity",0);
-        $("#cloudElementsBuildDays").html("0");
-
-        $(".breakdown").css("opacity",0);
-        */
+        $(".circle").each(function(){
+          $(this).empty();
+        });
 
         $("#data-selection").fadeIn(500);
       });
+    });
+  });
+
+  $(".fa-info-circle").each(function(){
+    $(this).click(function(){
+      var divID = $(this).attr("data-toggle");
+      $(divID).slideToggle("slow");
     });
   });
 
