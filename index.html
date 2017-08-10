@@ -6,8 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <!-- Bootstrap CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <!-- Bootstrap CSS Theme -->
 
@@ -40,7 +39,9 @@
       </div>
       <div class="form-wrapper container-fluid text-center" id="data-selection">
         <h2>Which APIs are you integrating?</h2>
-        <br />
+        <p>
+          Select the applications you want to connect, and we'll estimate how long it will take to build your integrations
+        </p>
         <div class="search-box d-flex justify-content-center">
           <label class="sr-only">Select Elements</label>
           <input class="autocomplete-search form-control mb-2 mr-sm-2 mb-sm-0" id="elements" size="40" placeholder="Search Elements (APIs)" />
@@ -88,7 +89,7 @@
               <h3 class="text-center diy-market">Build it Yourself:</h3>
             </td>
             <td class="text-right">
-              <strong><h3 class="diy-market to-red">&nbsp;&nbsp;&nbsp;&nbsp;<span class="diy-market" id="diyBuildDays">0</span> Days</h3></strong>
+              <h3 class="diy-market to-red">&nbsp;&nbsp;&nbsp;&nbsp;<span class="diy-market" id="diyBuildDays">0</span> Days</h3>
             </td>
           </tr>
           <tr>
@@ -96,7 +97,7 @@
               <h3 class="text-center ce-market">Cloud Elements:</h3>
             </td>
             <td class="text-right">
-              <strong><h3 class="ce-market">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ce-market" id="cloudElementsBuildDays">0</span> Days</h3></strong>
+              <h3 class="ce-market">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ce-market" id="cloudElementsBuildDays">0</span> Days</h3>
             </td>
           </tr>
         </table>

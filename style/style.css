@@ -76,9 +76,18 @@ input.form-control {
   display: none; /* use for transitioning */
 }
 
+#data-selection p {
+  font-size: 1rem;
+  font-weight:300;
+}
+
 @media screen and (max-width: 575px) {
   #data-selection {
     margin-top: 5px;
+  }
+
+  #data-selection h2 {
+    font-size: 1.7rem;
   }
 }
 
@@ -139,7 +148,7 @@ input.form-control {
   }
 
   .element-logo {
-    width: 9rem;
+    width: 6rem;
   }
 
   .element-label {
@@ -219,6 +228,10 @@ hr.total-apis {
   font-size: 1.5rem;
 }
 
+#diyBuildDays {
+  font-weight: 700;
+}
+
 h1.ce-market {
   margin-top: 10px;
 }
@@ -226,6 +239,10 @@ h1.ce-market {
 .ce-market {
   opacity: 0;
   font-size: 1.5rem;
+}
+
+#cloudElementsBuildDays {
+  font-weight: 700;
 }
 
 #build-summary-header {
