@@ -64,11 +64,12 @@ $(document).ready(function() {
   });
 
 
-  $("#get-started-form").submit(function() {
+  $("#get-started-form").submit(function(e) {
+    e.preventDefault();
     var userFull = $("input[name=user-name]").val();
     var userEmail = $("input[name=user-email]").val();
 
-    var splitName = test.split(" ");
+    var splitName = userFull.split(" ");
     var filteredName = splitName.filter(function(value){
       return value != "";
     });
@@ -82,7 +83,7 @@ $(document).ready(function() {
       lastName = "";
     }
     /* use this as a format for sending to hubspot form */
-		$.ajax({
+    $.ajax({
 			method: "POST",
 			contentType: "application/x-www-form-urlencoded; charset=UFT-8",
 			url: "https://forms.hubspot.com/uploads/form/v2/440197/ab10f18d-703f-4111-8bb5-f5f073fe073f",
@@ -94,17 +95,12 @@ $(document).ready(function() {
 				"pageName": "ROI Calculator"
 			}
 		});
-
-
-
     $("#get-started").fadeOut(500, function() {
       $(".main-content").removeClass("align-items-center");
       $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
         $("#data-selection").fadeIn(500);
       });
     });
-
-    return false;
   });
 
 
