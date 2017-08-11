@@ -87,7 +87,7 @@ $(document).ready(function() {
 			contentType: "application/x-www-form-urlencoded; charset=UFT-8",
 			url: "https://forms.hubspot.com/uploads/form/v2/440197/ab10f18d-703f-4111-8bb5-f5f073fe073f",
 			data: {
-        "hutk": hubspotCookie;
+        "hutk": hubspotCookie,
 				"firstname": firstName,
 				"lastname": lastName,
 				"email": userEmail,
