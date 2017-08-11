@@ -353,6 +353,7 @@ svg {
 .more-info-box {
   font-size: 1.1rem;
   padding-left: 50px;
+  padding-right: 50px;
   padding-top: 15px;
   color: #444444;
 }
@@ -395,6 +396,7 @@ i.fa-info-circle {
   }
   .more-info-box {
     padding-left: 200px;
+    padding-right: 200px;
   }
 
   .circle-label {
