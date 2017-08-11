@@ -62,6 +62,15 @@ $(document).ready(function() {
     $("#get-started").fadeIn(500);
   });
 
+  $(".secret-box").click(function(){
+    $("#get-started").fadeOut(500, function() {
+      $(".main-content").removeClass("align-items-center");
+      $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
+        $("#data-selection").fadeIn(500);
+      });
+    });
+  });
+
 
   $("#get-started-form").submit(function(e) {
     e.preventDefault();

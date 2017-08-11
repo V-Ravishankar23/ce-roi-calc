@@ -47,13 +47,14 @@
             <div class="form-inline container-fluid text-center">
               <div class="center form-group">
                 <!--Add required="required" attribute to these two inputs-->
-                <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-name" id="user-name" placeholder="Your Name" />
-                <input type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-email" id="user-email" placeholder="Company Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" oninvalid="setCustomValidity('Please enter a valid email address')" onchange="try{setCustomValidity('')}catch(e){}"
+                <input type="text" required class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-name" id="user-name" placeholder="Your Name" />
+                <input type="email" required class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-email" id="user-email" placeholder="Company Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" oninvalid="setCustomValidity('Please enter a valid email address')" onchange="try{setCustomValidity('')}catch(e){}"
                 />
               </div>
             </div>
           </div>
           <input type="submit" class="btn btn-default" value="Get Started" id="get-started-submit" />
+          <div class="secret-box"></div>
         </form>
       </div>
       <div class="form-wrapper container-fluid text-center" id="data-selection">
@@ -134,6 +135,7 @@
     </div>
     <footer class="foot d-flex justify-content-center">
       <img src="images/ce_full_wht.png" height="100px" />
+
     </footer>
   </div>
   <div class="results">
@@ -146,7 +148,7 @@
       </div>
     </div>
     <div class="more-info-box" id="research-info">
-      Research is the first step to building any API integration
+      Building an integration without researching the endpoint is like trying to build a skyscraper by looking at a picture on the internet. Without reading the documentation and becoming familiar with the inner workings of the API you're integrating, you'll most likely get 20 hours in before realizing your foundation was built completely wrong.
     </div>
 
 

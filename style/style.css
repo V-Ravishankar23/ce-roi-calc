@@ -426,3 +426,12 @@ i.fa-info-circle {
 .info-active {
   color: #44c8f5 !important;
 }
+
+.secret-box {
+  background-color: transparent;
+  right:0;
+  bottom: 0;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+}
