@@ -14,45 +14,57 @@ $(document).ready(function() {
   var firstName;
   var lastName;
 
-  function Utils() {
-  }
+  function Utils() {}
 
   Utils.prototype = {
-      constructor: Utils,
-      isElementInView: function (element, fullyInView) {
-          var pageTop = $(window).scrollTop();
-          var pageBottom = pageTop + $(window).height();
-          var elementTop = $(element).offset().top;
-          var elementBottom = elementTop + $(element).height();
+    constructor: Utils,
+    isElementInView: function(element, fullyInView) {
+      var pageTop = $(window).scrollTop();
+      var pageBottom = pageTop + $(window).height();
+      var elementTop = $(element).offset().top;
+      var elementBottom = elementTop + $(element).height();
 
-          if (fullyInView === true) {
-              return ((pageTop < elementTop) && (pageBottom > elementBottom));
-          } else {
-              return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
-          }
+      if (fullyInView === true) {
+        return ((pageTop < elementTop) && (pageBottom > elementBottom));
+      } else {
+        return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
       }
+    }
   };
 
   var Utils = new Utils();
+
+  $.fn.toPx = function(settings) {
+    settings = jQuery.extend({
+      scope: 'body'
+    }, settings);
+    var that = parseFloat(this[0]),
+      scopeTest = jQuery('<div style="display: none; font-size: 1em; margin: 0; padding:0; height: auto; line-height: 1; border:0;">&nbsp;</div>').appendTo(settings.scope),
+      scopeVal = scopeTest.height();
+    scopeTest.remove();
+    return Math.round(that * scopeVal)
+  };
+
+  var emToPx = $(1).toPx();
 
   function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
     }
     return "";
   }
   var hubspotCookie = getCookie("hubspotutk");
 
-  $(".more-info-box").each(function(){
+  $(".more-info-box").each(function() {
     $(this).hide();
   });
 
@@ -62,7 +74,7 @@ $(document).ready(function() {
     $("#get-started").fadeIn(500);
   });
 
-  $(".secret-box").click(function(){
+  $(".secret-box").click(function() {
     $("#get-started").fadeOut(500, function() {
       $(".main-content").removeClass("align-items-center");
       $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
@@ -78,31 +90,30 @@ $(document).ready(function() {
     var userEmail = $("input[name=user-email]").val();
 
     var splitName = userFull.split(" ");
-    var filteredName = splitName.filter(function(value){
+    var filteredName = splitName.filter(function(value) {
       return value != "";
     });
 
     if (filteredName.length > 1) {
       lastName = filteredName.pop();
       firstName = filteredName.join(" ");
-    }
-    else {
+    } else {
       firstName = filteredName[0];
       lastName = "";
     }
     /* use this as a format for sending to hubspot form */
     $.ajax({
-			method: "POST",
-			contentType: "application/x-www-form-urlencoded; charset=UFT-8",
-			url: "https://forms.hubspot.com/uploads/form/v2/440197/ab10f18d-703f-4111-8bb5-f5f073fe073f",
-			data: {
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded; charset=UFT-8",
+      url: "https://forms.hubspot.com/uploads/form/v2/440197/ab10f18d-703f-4111-8bb5-f5f073fe073f",
+      data: {
         "hutk": hubspotCookie,
-				"firstname": firstName,
-				"lastname": lastName,
-				"email": userEmail,
-				"pageName": "ROI Calculator"
-			}
-		});
+        "firstname": firstName,
+        "lastname": lastName,
+        "email": userEmail,
+        "pageName": "ROI Calculator"
+      }
+    });
     $("#get-started").fadeOut(500, function() {
       $(".main-content").removeClass("align-items-center");
       $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
@@ -111,7 +122,7 @@ $(document).ready(function() {
     });
   });
 
-  function hubspotFormSubmit(){
+  function hubspotFormSubmit() {
     $("#get-started").fadeOut(500, function() {
       $(".main-content").removeClass("align-items-center");
       $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
@@ -1020,9 +1031,10 @@ $(document).ready(function() {
         var addElement = template(context);
         $('#element-list').append(addElement);
         $("#" + thisElementKey).css("opacity", 1).show(300, function() {
+          var divWidth = ((10*emToPx)+20) * selectedElementsKeys.length;
           $('#element-list').animate({
-            scrollLeft: '+=400'
-          }, 500);
+            scrollLeft: '+=' + divWidth + 'px'
+          }, 1000);
         });
         setTimeout(function() {
           $(".btn-advance").animate({
@@ -1101,15 +1113,15 @@ $(document).ready(function() {
     var countSOAPAndOther = countSOAP + countOther;
     var diyBuildDays = (countREST * newBuildInfo["REST"].totalDays) + (countSOAP * newBuildInfo["SOAP"].totalDays) + (countOther * newBuildInfo["Other"].totalDays);
 
-    var researchDays = ((countREST * newBuildInfo["REST"].research) + (countSOAPAndOther * newBuildInfo["SOAP"].research))/8;
-    var setupDays = ((countREST * newBuildInfo["REST"].setup) + (countSOAPAndOther * newBuildInfo["SOAP"].setup))/8;
-    var authDays = ((countREST * newBuildInfo["REST"].auth) + (countSOAPAndOther * newBuildInfo["SOAP"].auth))/8;
-    var mvpDays = ((countREST * newBuildInfo["REST"].mvp) + (countSOAPAndOther * newBuildInfo["SOAP"].mvp))/8;
-    var modelsDays = ((countREST * newBuildInfo["REST"].models) + (countSOAPAndOther * newBuildInfo["SOAP"].models))/8;
-    var eventsDays = ((countREST * newBuildInfo["REST"].events) + (countSOAPAndOther * newBuildInfo["SOAP"].events))/8;
-    var bulkTransformationDays = ((countREST * newBuildInfo["REST"].bulkTransformation) + (countSOAPAndOther * newBuildInfo["SOAP"].bulkTransformation))/8;
-    var normalizationDays = ((countREST * newBuildInfo["REST"].normalization) + (countSOAPAndOther * newBuildInfo["SOAP"].normalization))/8;
-    var testingDays = ((countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing))/8;
+    var researchDays = ((countREST * newBuildInfo["REST"].research) + (countSOAPAndOther * newBuildInfo["SOAP"].research)) / 8;
+    var setupDays = ((countREST * newBuildInfo["REST"].setup) + (countSOAPAndOther * newBuildInfo["SOAP"].setup)) / 8;
+    var authDays = ((countREST * newBuildInfo["REST"].auth) + (countSOAPAndOther * newBuildInfo["SOAP"].auth)) / 8;
+    var mvpDays = ((countREST * newBuildInfo["REST"].mvp) + (countSOAPAndOther * newBuildInfo["SOAP"].mvp)) / 8;
+    var modelsDays = ((countREST * newBuildInfo["REST"].models) + (countSOAPAndOther * newBuildInfo["SOAP"].models)) / 8;
+    var eventsDays = ((countREST * newBuildInfo["REST"].events) + (countSOAPAndOther * newBuildInfo["SOAP"].events)) / 8;
+    var bulkTransformationDays = ((countREST * newBuildInfo["REST"].bulkTransformation) + (countSOAPAndOther * newBuildInfo["SOAP"].bulkTransformation)) / 8;
+    var normalizationDays = ((countREST * newBuildInfo["REST"].normalization) + (countSOAPAndOther * newBuildInfo["SOAP"].normalization)) / 8;
+    var testingDays = ((countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing)) / 8;
 
     var cloudElementsBuildDays = 30 + ((countREST + countSOAP + countOther - 1) * 7);
     /*
@@ -1134,58 +1146,66 @@ $(document).ready(function() {
     normalizationIsAnimated = false;
     testingIsAnimated = false;
 
-    $(".day-box").each(function(){
-      $(this).css("opacity",0);
+    $(".day-box").each(function() {
+      $(this).css("opacity", 0);
     });
 
-    $(".circle").each(function(){
+    $(".circle").each(function() {
       $(this).empty();
     });
 
-    $(".results").show(function(){
+    $(".results").show(function() {
 
-    // Fill in results section
-    // Animated Circles
+      // Fill in results section
+      // Animated Circles
       // researchCircle
       researchCircle = new ProgressBar.Circle("#research-circle", {
-          color: '#aaa',
-          // This has to be the same size as the maximum width to
-          // prevent clipping
-          strokeWidth: 8,
-          trailWidth: 2,
-          easing: 'easeInOut',
-          duration: 3000,
-          text: {
-            style: {
-              color: "black",
-              position: 'absolute',
-              padding: 0,
-              margin: 0,
-            },
-            autoStyleContainer: true
+        color: '#aaa',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 8,
+        trailWidth: 2,
+        easing: 'easeInOut',
+        duration: 3000,
+        text: {
+          style: {
+            color: "black",
+            position: 'absolute',
+            padding: 0,
+            margin: 0,
           },
-          from: { color: '#aaa', width: 2 },
-          to: { color: '#333', width: 8 },
-          // Set default step function for all animate calls
-          step: function(state, circle) {
-            circle.path.setAttribute('stroke', state.color);
-            circle.path.setAttribute('stroke-width', state.width);
+          autoStyleContainer: true
+        },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
 
-            var value = Math.round(circle.value()*researchDays);
-            if (value === 0) {
-              circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
-            } else {
-              circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
-            }
-
+          var value = Math.round(circle.value() * researchDays);
+          if (value === 0) {
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
+          } else {
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
-        });
+
+        }
+      });
       var researchIsAnimated = false;
-      $(window).scroll( function(){
-        if(researchIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.research'),true);
-          if(isElementInView){
-            $('.research').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (researchIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.research'), true);
+          if (isElementInView) {
+            $('.research').animate({
+              "opacity": 1
+            });
             researchCircle.animate(1);
             researchIsAnimated = true;
           }
@@ -1209,28 +1229,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*setupDays);
+          var value = Math.round(circle.value() * setupDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var setupIsAnimated = false;
-      $(window).scroll( function(){
-        if(setupIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.setup'),true);
-          if(isElementInView){
-            $('.setup').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (setupIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.setup'), true);
+          if (isElementInView) {
+            $('.setup').animate({
+              "opacity": 1
+            });
             setupCircle.animate(1);
             setupIsAnimated = true;
           }
@@ -1254,28 +1282,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*authDays);
+          var value = Math.round(circle.value() * authDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var authIsAnimated = false;
-      $(window).scroll( function(){
-        if(authIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.auth'),true);
-          if(isElementInView){
-            $('.auth').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (authIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.auth'), true);
+          if (isElementInView) {
+            $('.auth').animate({
+              "opacity": 1
+            });
             authCircle.animate(1);
             authIsAnimated = true;
           }
@@ -1299,28 +1335,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*mvpDays);
+          var value = Math.round(circle.value() * mvpDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var mvpIsAnimated = false;
-      $(window).scroll( function(){
-        if(mvpIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.mvp'),true);
-          if(isElementInView){
-            $('.mvp').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (mvpIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.mvp'), true);
+          if (isElementInView) {
+            $('.mvp').animate({
+              "opacity": 1
+            });
             mvpCircle.animate(1);
             mvpIsAnimated = true;
           }
@@ -1344,28 +1388,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*modelsDays);
+          var value = Math.round(circle.value() * modelsDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var modelsIsAnimated = false;
-      $(window).scroll( function(){
-        if(modelsIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.models'),true);
-          if(isElementInView){
-            $('.models').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (modelsIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.models'), true);
+          if (isElementInView) {
+            $('.models').animate({
+              "opacity": 1
+            });
             modelsCircle.animate(1);
             modelsIsAnimated = true;
           }
@@ -1389,28 +1441,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*eventsDays);
+          var value = Math.round(circle.value() * eventsDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var eventsIsAnimated = false;
-      $(window).scroll( function(){
-        if(eventsIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.events'),true);
-          if(isElementInView){
-            $('.events').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (eventsIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.events'), true);
+          if (isElementInView) {
+            $('.events').animate({
+              "opacity": 1
+            });
             eventsCircle.animate(1);
             eventsIsAnimated = true;
           }
@@ -1434,28 +1494,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*bulkTransformationDays);
+          var value = Math.round(circle.value() * bulkTransformationDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var bulkIsAnimated = false;
-      $(window).scroll( function(){
-        if(bulkIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.bulk'),true);
-          if(isElementInView){
-            $('.bulk').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (bulkIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.bulk'), true);
+          if (isElementInView) {
+            $('.bulk').animate({
+              "opacity": 1
+            });
             bulkCircle.animate(1);
             bulkIsAnimated = true;
           }
@@ -1479,28 +1547,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*normalizationDays);
+          var value = Math.round(circle.value() * normalizationDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var normalizationIsAnimated = false;
-      $(window).scroll( function(){
-        if(normalizationIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.normalization'),true);
-          if(isElementInView){
-            $('.normalization').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (normalizationIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.normalization'), true);
+          if (isElementInView) {
+            $('.normalization').animate({
+              "opacity": 1
+            });
             normalizationCircle.animate(1);
             normalizationIsAnimated = true;
           }
@@ -1524,28 +1600,36 @@ $(document).ready(function() {
           },
           autoStyleContainer: true
         },
-        from: { color: '#aaa', width: 2 },
-        to: { color: '#333', width: 8 },
+        from: {
+          color: '#aaa',
+          width: 2
+        },
+        to: {
+          color: '#333',
+          width: 8
+        },
         // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
 
-          var value = Math.round(circle.value()*testingDays);
+          var value = Math.round(circle.value() * testingDays);
           if (value === 0) {
-            circle.setText("<h1 class='circle-number'>"+0+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");
+            circle.setText("<h1 class='circle-number'>" + 0 + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");
           } else {
-            circle.setText("<h1 class='circle-number'>"+value+"</h1>"+"<p class='circle-days' style='text-align:center;'>Days</p>");;
+            circle.setText("<h1 class='circle-number'>" + value + "</h1>" + "<p class='circle-days' style='text-align:center;'>Days</p>");;
           }
 
         }
       });
       var testingIsAnimated = false;
-      $(window).scroll( function(){
-        if(testingIsAnimated === false) {
-          var isElementInView = Utils.isElementInView($('.testing'),true);
-          if(isElementInView){
-            $('.testing').animate({"opacity":1});
+      $(window).scroll(function() {
+        if (testingIsAnimated === false) {
+          var isElementInView = Utils.isElementInView($('.testing'), true);
+          if (isElementInView) {
+            $('.testing').animate({
+              "opacity": 1
+            });
             testingCircle.animate(1);
             testingIsAnimated = true;
           }
@@ -1605,7 +1689,7 @@ $(document).ready(function() {
       $(".breakdown").css("opacity", 0);
 
       $(".loader").fadeIn(500).delay(500).fadeOut(500)
-      setTimeout(function(){
+      setTimeout(function() {
         /* Every time the window is scrolled ... */
 
         $("#calculated-roi").fadeIn(500, function() {
@@ -1668,16 +1752,16 @@ $(document).ready(function() {
 
 
         });
-      },2000);
+      }, 2000);
     });
 
     $(".btn-go-back").click(function() {
 
       $(".results").hide();
-      $(".more-info-box").each(function(){
+      $(".more-info-box").each(function() {
         $(this).hide();
       });
-      $(".fa-info-circle").each(function(){
+      $(".fa-info-circle").each(function() {
         $(this).removeClass("info-active");
       });
 
@@ -1690,11 +1774,11 @@ $(document).ready(function() {
     });
   });
 
-  $(".fa-info-circle").each(function(){
-    $(this).click(function(){
+  $(".fa-info-circle").each(function() {
+    $(this).click(function() {
       var divID = $(this).attr("data-toggle");
       $(divID).slideToggle("slow");
-      $(this).toggleClass("info-active",500,"easeOutSine");
+      $(this).toggleClass("info-active", 500, "easeOutSine");
     });
   });
 
