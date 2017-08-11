@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
   var researchCircle;
   var setupCircle;
   var authCircle;
@@ -11,6 +10,9 @@ $(document).ready(function() {
   var normalizationCircle;
   var testingCircle;
 
+
+  var firstName;
+  var lastName;
 
 
   function Utils() {
@@ -34,6 +36,23 @@ $(document).ready(function() {
 
   var Utils = new Utils();
 
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  }
+  var hubspotCookie = getCookie("hubspotutk");
+
   $(".more-info-box").each(function(){
     $(this).hide();
   });
@@ -46,20 +65,35 @@ $(document).ready(function() {
 
 
   $("#get-started-form").submit(function() {
-    var userFirst = $("input[name=user-name]").val();
+    var userFull = $("input[name=user-name]").val();
     var userEmail = $("input[name=user-email]").val();
-    /* use this as a format for sending to hubspot form
+
+    var splitName = test.split(" ");
+    var filteredName = splitName.filter(function(value){
+      return value != "";
+    });
+
+    if (filteredName.length > 1) {
+      lastName = filteredName.pop();
+      firstName = filteredName.join(" ");
+    }
+    else {
+      firstName = filteredName[0];
+      lastName = "";
+    }
+    /* use this as a format for sending to hubspot form */
 		$.ajax({
 			method: "POST",
 			contentType: "application/x-www-form-urlencoded; charset=UFT-8",
-			url: "https://forms.hubspot.com/uploads/form/v2/440197/e3ca91ee-b2e1-4dd2-899b-69855befe36d",
+			url: "https://forms.hubspot.com/uploads/form/v2/440197/ab10f18d-703f-4111-8bb5-f5f073fe073f",
 			data: {
-				"firstname": userFirst,
-				"lastname": userLast,
+        "hutk": hubspotCookie;
+				"firstname": firstName,
+				"lastname": lastName,
 				"email": userEmail,
-				"pageName": "Codepen"
+				"pageName": "ROI Calculator"
 			}
-		}); */
+		});
 
 
 
