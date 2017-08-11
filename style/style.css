@@ -53,9 +53,10 @@ footer {
   cursor: pointer;
 }
 
-input.form-control {
+input.form-control, .hs-form input[type='text'], .hs-form input[type='email'] {
   color: white;
   background-color: rgba(0,0,0,0.5);
+  border-style: none;
 }
 
 .form-control:focus {

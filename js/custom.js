@@ -14,7 +14,6 @@ $(document).ready(function() {
   var firstName;
   var lastName;
 
-
   function Utils() {
   }
 
@@ -102,6 +101,15 @@ $(document).ready(function() {
       });
     });
   });
+
+  function hubspotFormSubmit(){
+    $("#get-started").fadeOut(500, function() {
+      $(".main-content").removeClass("align-items-center");
+      $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
+        $("#data-selection").fadeIn(500);
+      });
+    });
+  }
 
 
   var elementData = [{

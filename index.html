@@ -6,7 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">  <!-- Bootstrap CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <!-- Bootstrap CSS Theme -->
 
@@ -24,13 +25,31 @@
       <div class="form-wrapper text-center" id="get-started">
         <h1>Calculate Your Cloud Elements ROI</h1>
         <br />
+
+        <!--[if lte IE 8]>
+<script charset="utf-8" type="text/javascript" src="https://js.hsforms.net/forms/v2-legacy.js"></script>
+<![endif]-->
+<!--
+        <script charset="utf-8" type="text/javascript" src="https://js.hsforms.net/forms/v2.js"></script>
+        <script>
+          hbspt.forms.create({
+            css: '',
+            portalId: '440197',
+            formId: 'ab10f18d-703f-4111-8bb5-f5f073fe073f',
+            onFormSubmit: function($form){
+              hubspotFormSubmit();
+            }
+          });
+        </script>
+      -->
         <form id="get-started-form">
           <div class="d-flex">
             <div class="form-inline container-fluid text-center">
               <div class="center form-group">
                 <!--Add required="required" attribute to these two inputs-->
                 <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-name" id="user-name" placeholder="Your Name" />
-                <input type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-email" id="user-email" placeholder="Company Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" oninvalid="setCustomValidity('Please enter a valid email address')" onchange="try{setCustomValidity('')}catch(e){}"/>
+                <input type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" name="user-email" id="user-email" placeholder="Company Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" oninvalid="setCustomValidity('Please enter a valid email address')" onchange="try{setCustomValidity('')}catch(e){}"
+                />
               </div>
             </div>
           </div>
