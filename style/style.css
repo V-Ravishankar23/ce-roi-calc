@@ -167,6 +167,7 @@ input.form-control, .hs-form input[type='text'], .hs-form input[type='email'] {
 
 #element-catalog {
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   height: 100%;
   width: 100%;
   padding-top: 20px;
