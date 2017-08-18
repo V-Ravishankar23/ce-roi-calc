@@ -85,23 +85,24 @@ $(document).ready(function() {
 
 
   $("#get-started-form").submit(function(e) {
-    e.preventDefault();
-    var userFull = $("input[name=user-name]").val();
-    var userEmail = $("input[name=user-email]").val();
+    e.preventDefault(); // prevent page from refreshing when submitting
+    var userFull = $("input[name=user-name]").val(); // get contents of name field
+    var userEmail = $("input[name=user-email]").val(); // get contents of email field
 
-    var splitName = userFull.split(" ");
+    var splitName = userFull.split(" "); // split name by spaces into array
     var filteredName = splitName.filter(function(value) {
-      return value != "";
+      return value != ""; // get rid of accidental spaces at beginning or end of name
     });
 
     if (filteredName.length > 1) {
-      lastName = filteredName.pop();
-      firstName = filteredName.join(" ");
+      lastName = filteredName.pop(); // if the name is longer than one word, take the last word as last name
+      firstName = filteredName.join(" "); // rejoin remaining words and save as first name
     } else {
-      firstName = filteredName[0];
+      firstName = filteredName[0]; // if the name is just one word, save it as first name
       lastName = "";
     }
-    /* use this as a format for sending to hubspot form */
+    // use this as a format for sending to hubspot form
+    // According to HubSpot, the form API shouldn't accept ajax posts, but this is working somehow :)
     $.ajax({
       method: "POST",
       contentType: "application/x-www-form-urlencoded; charset=UFT-8",
@@ -122,15 +123,8 @@ $(document).ready(function() {
     });
   });
 
-  function hubspotFormSubmit() {
-    $("#get-started").fadeOut(500, function() {
-      $(".main-content").removeClass("align-items-center");
-      $(".loader").fadeIn(500).delay(500).fadeOut(500, function() {
-        $("#data-selection").fadeIn(500);
-      });
-    });
-  }
-
+  // Data for all elements. Add new elements to the end of elementData.
+  // Make sure that element logo files are in the format: key.png
 
   var elementData = [{
       name: 'Slack',
@@ -890,7 +884,7 @@ $(document).ready(function() {
     }
   ];
 
-  var buildInfo = {
+  /* var buildInfo = {
     "REST": {
       "buildDays": 90,
       "buildCost": 30000,
@@ -911,7 +905,7 @@ $(document).ready(function() {
       "buildCost": 60000,
       "annMaintCost": 12000
     },
-  }
+  }  */
 
   var newBuildInfo = {
     "REST": {
@@ -961,34 +955,200 @@ $(document).ready(function() {
   for (var i = 0; i < length; i++) {
     elementNames.push(elementData[i]["name"]);
   }
+
   for (var i = 0; i < length; i++) {
     elementKeys.push(elementData[i]["key"]);
   }
 
-  // Element selection arrays
-  var selectedElementsKeys = [];
+  // Create Catalog Array
+  var catalogArray = [];
+  for (var i = 0; i < elementKeys.length; i++) {
+    var catalogObject = {};
+    catalogObject.key = elementKeys[i];
+    catalogObject.addKey = elementKeys[i] + "_catalog";
+    catalogObject.addName = elementNames[i];
+    catalogObject.elementImg = elementKeys[i] + ".png";
+    catalogArray.push(catalogObject);
+  }
 
+  // Add a custom element to elementData, update elementNames & elementKeys arrays, and update catalogArray
+  function addCustomElement(name,type){
+    // Add custom element
+    var newCustomElement = {};
+    newCustomElement.name = name;
+    newCustomElement.key = name.replace(/\W/g, '').toLowerCase() + "_customElement";
+    newCustomElement.hub = "custom";
+    newCustomElement.apiType = type;
+    elementData.unshift(newCustomElement);
 
+    // Update elementNames & elementKeys
+    elementNames = [];
+    elementKeys = [];
+    length = elementData.length;
+    for (var i = 0; i < length; i++) {
+      elementNames.push(elementData[i]["name"]);
+    }
 
-  // element selection autocomplete
+    for (var i = 0; i < length; i++) {
+      elementKeys.push(elementData[i]["key"]);
+    }
 
-  function sortInputFirst(input, data) {
+    // Update catalogArray
+    catalogArray = [];
+    for (var i = 0; i < elementKeys.length; i++) {
+      var catalogObject = {};
+      catalogObject.key = elementKeys[i];
+      catalogObject.addKey = elementKeys[i] + "_catalog";
+      catalogObject.addName = elementNames[i];
+      if (elementKeys[i].indexOf("_customElement") >= 0){
+        catalogObject.elementImg = "customelement.png"
+      }
+      else {
+        catalogObject.elementImg = elementKeys[i] + ".png";
+      }
+      catalogArray.push(catalogObject);
+    }
+  }
+
+  // Catalog Array Filter and Sort Function
+  function filterSortCatalog(catalog,query){
+    var filterCatalog = $.grep(catalog,function(val,index){
+      var name = val.addName.toLowerCase();
+      var queryString = query.toLowerCase();
+      return (name.indexOf(queryString) >= 0);
+    });
     var first = [];
     var others = [];
-    for (var i = 0; i < data.length; i++) {
-      var thisTag = (data[i]).toLowerCase();
-      if (thisTag.indexOf(input.toLowerCase()) === 0) {
-        first.push(data[i]);
-      } else {
-        others.push(data[i]);
+    for (var i = 0; i < filterCatalog.length; i++) {
+      var thisName = (filterCatalog[i].addName).toLowerCase();
+      if (thisName.indexOf(query.toLowerCase()) === 0){
+        first.push(filterCatalog[i]);
+      }
+      else {
+        others.push(filterCatalog[i]);
       }
     }
-    first.sort();
-    others.sort();
+
+    first.sort(function(a,b) {return (a.addName.toLowerCase() > b.addName.toLowerCase()) ? 1 : ((b.addName.toLowerCase() > a.addName.toLowerCase()) ? -1 : 0);} );
+    others.sort(function(a,b) {return (a.addName.toLowerCase() > b.addName.toLowerCase()) ? 1 : ((b.addName.toLowerCase() > a.addName.toLowerCase()) ? -1 : 0);} );
     return (first.concat(others));
   }
 
-  var availableTags = elementNames;
+  function publishCatalog(catalog,exclude) {
+    exclude = exclude || [];
+    $('#element-catalog').empty();
+
+    if (catalog.length < 1) {
+      $('#element-catalog').html("<div id='custom-element-button'><div class='element-logo d-flex justify-content-center align-items-center' style='display: flex; justify-content:center; align-items:center' id='custom-element-button-logo'><div class='add-an-element-inner text-center' style='text-align:center; font-family:''Open Sans', sans-serif'><i class='fa fa-plus'></i><p>Add <span style='color: lightblue'>" + $('#elements-new').val() + "</span></p></div></div></div>")
+    }
+    else {
+      for (var i = 0; i < catalog.length; i++) {
+        var thisElementKey = catalog[i].key;
+        var thisElementAddKey = catalog[i].addKey;
+        var thisElementName = catalog[i].addName;
+        var thisElementImg = catalog[i].elementImg;
+        var source = $("#catalog-entry-template").html();
+        var template = Handlebars.compile(source);
+        var context = {
+          "elementImg": thisElementImg,
+          "addName": thisElementName,
+          "addKey": thisElementAddKey
+        };
+        var thisElement = template(context);
+        if (exclude.indexOf(thisElementKey) < 0) {
+          $('#element-catalog').append(thisElement);
+        }
+      }
+    }
+  }
+
+  // Array of elements that are currently selected
+  var selectedElementsKeys = [];
+
+  $("#add-an-element-logo").click(function(){
+    $("#new-selection-window").fadeIn()
+    publishCatalog(catalogArray,selectedElementsKeys);
+  });
+
+  $("#elements-new").keyup(function(){
+    var input = $('#elements-new').val();
+    var updatingCatalog = filterSortCatalog(catalogArray,input);
+    publishCatalog(updatingCatalog,selectedElementsKeys);
+  });
+
+  $("#cancel-add").click(function(){
+    $("#elements-new").val("");
+    $("#new-selection-window").fadeOut()
+  });
+
+  $(document).on('click','#custom-element-button-logo',function(){
+    $("#custom-element-window").animate({top:0},500);
+    var input = $('#elements-new').val();
+    $("#custom-element-name").val(input);
+  });
+
+  $(document).on('click','#cancel-custom',function(){
+    $("#custom-element-window").animate({top:'100vh'},500);
+    var input = $('#elements-new').val();
+  });
+
+  $(document).on('click', '.api-type-select',function(){
+    var $this = $(this);
+    if ($this.hasClass('api-type-active') != true) {
+      $('.api-type-active').removeClass('api-type-active');
+      $this.addClass('api-type-active');
+    }
+  });
+
+  $('#custom-element-form').submit(function(){
+    $("#custom-element-window").animate({top:'100vh'},500);
+    $("#new-selection-window").fadeOut();
+    var customElementName = $('#custom-element-name').val();
+    var customElementType = $('.api-type-active').attr('value');
+    addCustomElement(customElementName,customElementType);
+    return false;
+  });
+
+  $(document).on('click', '.element-in-catalog',function(){
+    $("#elements-new").val("");
+    $("#new-selection-window").fadeOut();
+    var thisElementKey = $(this).attr("id").replace("_catalog","");
+    selectedElementsKeys.push(thisElementKey);
+    var thisElementObject = $.grep(elementData, function(e) {
+      return e.key == thisElementKey;
+    });
+    var thisElementName = thisElementObject[0].name;
+    var elementImg;
+    if (thisElementKey.indexOf("_customElement") >= 0){
+      elementImg = "customelement.png"
+    }
+    else {
+      elementImg = thisElementKey + ".png";
+    }
+    var source = $("#element-entry-template").html();
+    var template = Handlebars.compile(source);
+    var context = {
+      "elementImg": elementImg,
+      "selected": thisElementName,
+      "key": thisElementKey
+    };
+    var addElement = template(context);
+    $('#add-an-element').before(addElement);
+    $("#" + thisElementKey).css("opacity", 1).show(300, function() {
+      var divWidth = ((10*emToPx)+20) * selectedElementsKeys.length;
+      $('#element-list').animate({
+        scrollLeft: '+=' + divWidth + 'px'
+      }, 1000);
+    });
+    setTimeout(function() {
+      $(".btn-advance").animate({
+        "opacity": 1
+      });
+    }, 500);
+  });
+
+  // Autocomplete Function
+  /*
   $(function() {
 
 
@@ -1006,13 +1166,12 @@ $(document).ready(function() {
       select: function(event, ui) {
         var selected = ui.item.value;
         var thisElementObject = $.grep(elementData, function(e) {
-          return e.name == selected
+          return e.name == selected;
         });
         var thisElementKey = thisElementObject[0].key;
         var elementImg = thisElementKey + ".png";
 
         selectedElementsKeys.push(thisElementKey);
-        $(".testdiv").html(selectedElementsKeys.join(",")); // remove
 
         var source = $("#element-entry-template").html();
         var template = Handlebars.compile(source);
@@ -1049,7 +1208,9 @@ $(document).ready(function() {
       }
     });
   });
+  */
 
+  // Executes when user clicks "remove" button under an element
   $(document).on('click', '.btn-remove', function() {
     var removeThisKey = $(this).closest("div").attr('id');
     var removeDiv = $(this).closest('div');
@@ -1073,6 +1234,7 @@ $(document).ready(function() {
     }
 
     // add this element back to selection options
+    /*
     var addBack = $(this).val();
     availableTags.push(addBack);
     $("#elements").autocomplete("option", "source", function(request, response) {
@@ -1080,17 +1242,11 @@ $(document).ready(function() {
       var sortedResults = sortInputFirst(request.term, results);
       response(sortedResults.slice(0, 8));
     });
-    $(".testdiv").html(selectedElementsKeys.join(",")); // remove
-
-
+    */
   });
 
+  // Executes when user clicks "Calculate Your ROI" button
   $(".btn-advance").click(function() {
-
-
-
-    //for testing
-    // selectedElementsKeys = ["slack","base","sqlserver","sharefile"];
     var keysForCalculation = selectedElementsKeys;
     var numOfElements = keysForCalculation.length;
     var countREST = 0;
@@ -1124,17 +1280,6 @@ $(document).ready(function() {
     var testingDays = ((countREST * newBuildInfo["REST"].testing) + (countSOAPAndOther * newBuildInfo["SOAP"].testing)) / 8;
 
     var cloudElementsBuildDays = 30 + ((countREST + countSOAP + countOther - 1) * 7);
-    /*
-    researchCircle = undefined;
-    setupCircle = undefined;
-    authCircle = undefined;
-    mvpCircle = undefined;
-    modelsCircle = undefined;
-    eventsCircle = undefined;
-    bulkCircle = undefined;
-    normalizationCircle = undefined;
-    testingCircle = undefined;
-    */
 
     researchIsAnimated = false;
     setupIsAnimated = false;

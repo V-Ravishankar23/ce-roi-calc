@@ -19,6 +19,15 @@
 </head>
 
 <body>
+  <script id="catalog-entry-template" type="text/x-handlebars-template">
+    <div class="element-in-catalog text-center" id="{{addKey}}">
+      <img class="catalog-element-logo" src="images/circle-logos/{{elementImg}}" />
+      <p class="catalog-element-label">
+        {{addName}}
+      </p>
+    </div>
+  </script>
+
   <div class="first-page">
     <div class="main-content d-flex justify-content-center align-items-center">
       <!-- add class align-items-center again -->
@@ -60,13 +69,17 @@
       <div class="form-wrapper container-fluid text-center" id="data-selection">
         <h2>Which APIs are you integrating?</h2>
         <p>
-          Select the applications you want to connect, and we'll estimate how long it will take to build your integrations
+          Click "Add an API" to select the applications you want to connect, and we'll estimate how long it will take to build your integrations
         </p>
-        <div class="search-box d-flex justify-content-center">
+        <!--<div class="search-box d-flex justify-content-center">
           <label class="sr-only">Select Elements</label>
           <input class="autocomplete-search form-control mb-2 mr-sm-2 mb-sm-0" id="elements" size="40" placeholder="Search Elements (APIs)" />
-        </div>
+        </div> -->
         <div class="element-list d-flex" id="element-list">
+          <div class="selected-element" id="add-an-element">
+            <div class="element-logo d-flex justify-content-center align-items-center" id="add-an-element-logo"><div class="add-an-element-inner text-center"><i class="fa fa-plus"></i><p>Add an API</p></div></div>
+          </div>
+          <!-- Handlebars script to create element divs in scrollable section -->
           <script id="element-entry-template" type="text/x-handlebars-template">
             <div class="selected-element" id="{{key}}">
               <img class="element-logo" src="images/circle-logos/{{elementImg}}" />
@@ -76,12 +89,45 @@
               <button class="btn btn-default btn-remove" value="{{selected}}"><i class="fa fa-times-circle-o" aria-hidden="true"></i>  Remove</button>
             </div>
           </script>
+          <!-- End Handlebars script for element divs -->
         </div>
 
         <div class="advance-btn-div">
           <button class="btn btn-default btn-advance">Calculate Your ROI</button>
         </div>
       </div>
+
+      <div id="new-selection-window">
+        <div class="catalog-search-box d-flex justify-content-center align-items-center">
+          <label class="sr-only">Select Elements</label>
+          <input class="autocomplete-search form-control" id="elements-new" size="40" placeholder="Search APIs" />
+          <i class="fa fa-2x fa-times-circle" id="cancel-add"></i>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center" id="element-catalog">
+
+        </div>
+        <div class="d-flex justify-content-center align-items-center" id="custom-element-window">
+          <i class="fa fa-2x fa-times-circle" id="cancel-custom"></i>
+          <div class="custom-element-form">
+            <form id="custom-element-form">
+              <div class="form-group">
+                <p class="text-center">Name</p>
+                <input required class="form-control" id="custom-element-name" type="text" placeholder="API Name" />
+              </div>
+              <div class="form-group">
+                <p class="text-center">API Type</p>
+                <div class="d-flex">
+                  <input id="api-type-rest" class="api-type-select api-type-active" type="button" value="REST" />
+                  <input id="api-type-soap" class="api-type-select" type="button" value="SOAP" />
+                  <input id="api-type-other" class="api-type-select" type="button" value="Other" />
+                </div>
+              </div>
+              <input id="custom-element-submit" type="submit" class="btn btn-default" value="Add API"/>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div class="" id="calculated-roi">
         <h1 class="text-center" id="build-summary-header">BUILD SUMMARY</h1>
         <div class="api-count">
@@ -90,7 +136,7 @@
             <h3><span class="" id="countREST">0</span></h3>
           </div>
           <div class="d-flex justify-content-around soap-apis">
-            <h3>SOAP APIs:</h3>
+            <h3>SOAP &amp; Other APIs:</h3>
             <h3><span class="" id="countSOAP">0</span></h3>
           </div>
           <hr class="total-apis" color="white" noshade/>
