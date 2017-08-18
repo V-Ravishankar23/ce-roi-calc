@@ -1106,6 +1106,32 @@ $(document).ready(function() {
     var customElementName = $('#custom-element-name').val();
     var customElementType = $('.api-type-active').attr('value');
     addCustomElement(customElementName,customElementType);
+    $("#elements-new").val("");
+    var thisElementName = customElementName;
+    var thisElementKey = thisElementName.replace(/\W/g, '').toLowerCase() + "_customElement";
+    selectedElementsKeys.push(thisElementKey);
+    var elementImg = "customelement.png"
+    var source = $("#element-entry-template").html();
+    var template = Handlebars.compile(source);
+    var context = {
+      "elementImg": elementImg,
+      "selected": thisElementName,
+      "key": thisElementKey
+    };
+    var addElement = template(context);
+    $('#add-an-element').before(addElement);
+    $("#" + thisElementKey).css("opacity", 1).show(300, function() {
+      var divWidth = ((10*emToPx)+20) * selectedElementsKeys.length;
+      $('#element-list').animate({
+        scrollLeft: '+=' + divWidth + 'px'
+      }, 1000);
+    });
+    setTimeout(function() {
+      $(".btn-advance").animate({
+        "opacity": 1
+      });
+    }, 500);
+
     return false;
   });
 
@@ -1222,14 +1248,14 @@ $(document).ready(function() {
         $(removeDiv).closest("div").animate({
           "opacity": 0
         }, 300, function() {
-          $(this).hide();
+          $(this).hide().remove();
         });
       });
     } else {
       $(removeDiv).closest("div").animate({
         "opacity": 0
       }, 300, function() {
-        $(this).hide();
+        $(this).hide().remove();
       });
     }
 
