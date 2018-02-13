@@ -588,3 +588,7 @@ i.fa-info-circle {
   position: absolute;
   cursor: pointer;
 }
+
+.secret-box:hover {
+  cursor: pointer;
+}
