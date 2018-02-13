@@ -586,4 +586,5 @@ i.fa-info-circle {
   width: 70px;
   height: 70px;
   position: absolute;
+  cursor: pointer;
 }
